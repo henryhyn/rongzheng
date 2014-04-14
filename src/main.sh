@@ -71,7 +71,7 @@ cd -
 #### data analysis ####
 # mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e 'source proc_rongzheng.sql'
 # mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e "call sp_MergeData($year)"
-# mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e 'source proc_select.sql'
+# mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e 'source sp_select.sql'
 # mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e 'source sp_valid.sql'
 # mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e 'source sp_rank.sql'
 # mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e 'source sp_average.sql'

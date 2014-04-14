@@ -1,0 +1,66 @@
+<<setup, include=FALSE>>=
+library('RMySQL')
+driver = dbDriver("MySQL")
+connect = dbConnect(driver,user='root',password='mysql',host='localhost',dbname='rongzheng')
+dbSendQuery(connect, "set names utf8")
+library('xtable')
+library('plyr')
+library('tcltk')
+library('RSQLite')
+library('RSQLite.extfuns')
+library('sqldf')
+options(sqldf.driver="SQLite")
+num.company=2452
+num.rate=2437
+this.year=2012
+last.year=2011
+sql = "select 职位内容,职位秩序 from RZ_Job where 职位秩序<=32"
+iterator = fetch(dbSendQuery(connect,sql))
+sql = "select 行业名称,行业编码 from RZ_HangYe"
+hangye = fetch(dbSendQuery(connect,sql))
+@
+
+\title{中国企业家价值报告}
+\author{数据部分: 中国上市公司高管身价排行榜}
+\date{(\Sexpr{this.year} 年)}
+\maketitle
+\tableofcontents
+\newpage
+\listoftables
+
+\newpage
+\section{有效样本数}
+%本文的统计是基于公司的, 样本数是公司的\textbf{家数}, 按以下规则提取用于分析的记录.
+%\begin{itemize}
+%\item 董事长兼总经理的, 总经理的排名不包括兼董事长的, 即总经理的排名只排单独为总经理的;
+%\item 副总经理兼财务总监兼董秘, 副总经理兼财务总监, 副总经理兼董秘, 董秘兼财务总监的, 
+%上述这 4 种情况, 都要既进入副总经理又进入董秘或进入财务总监的表;
+%\item 排名时单独董秘排名包括同时兼任财务总监的, 但单独财务总监排名剔除同时兼任董秘的.
+%\item 每家公司, 每个职位, 取最高年薪, 或最高持股市值.
+%\end{itemize}
+
+\subsection{年薪有效样本数}
+<<results='asis'>>=
+sql = "select * from RZ_Valid_Case_Salary"
+data.salary = fetch(dbSendQuery(connect,sql))
+data.salary[1,2:8] = num.company-data.salary[2,2:8]-data.salary[3,2:8]
+data.table = xtable(data.salary,digits=0)
+caption(data.table)= paste("本项研究之年薪有效样本数 (总样本数",num.company,")")
+print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+@
+
+\subsection{持股有效样本数}
+<<results='asis'>>=
+sql = "select * from RZ_Valid_Case_Stock"
+data.stock = fetch(dbSendQuery(connect,sql))
+data.stock[1,2:6] = num.company-data.stock[2,2:6]-data.stock[3,2:6]
+data.table = xtable(data.stock,digits=0)
+caption(data.table)= paste("本项研究之持股有效样本数 (总样本数",num.company,")")
+print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+@
+
+
+
+
+
+

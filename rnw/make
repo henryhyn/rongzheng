@@ -1,0 +1,16 @@
+#!/bin/bash
+./clean
+#rm -fr figure cache
+cat chap01.Rnw \
+    chap02.Rnw \
+    chap04.Rnw \
+    chap08.Rnw \
+    chap13.Rnw \
+  > chap99.Rnw
+./make.r
+xelatex main.tex
+xelatex main.tex
+rm -frv main.odt
+pandoc -f latex -t docx -o main.docx chap99.tex
+#rm -fr figure cache
+#./clean

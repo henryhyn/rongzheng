@@ -1,0 +1,616 @@
+Sub Split()
+' 将一个表中的每条记录, 按某个属性值拆分成多条记录
+' 设置数据源, 默认第一行为标题行
+  Set R = Worksheets("Sheet1").Range("A2:G36732")
+' 设置输出的工作表
+  Set T = Worksheets("Sheet2")
+' 按 col 的属性值拆分, 分隔符为 dmt
+  col = 5
+  dmt = ","
+' 设置完成, 下面是具体操作, 建议不要随便修改
+  nr = R.Rows.Count
+  nc = R.Columns.Count
+' 设置标题行
+  For j = 1 To nc
+    T.Cells(1, j).Value = R.Cells(1, j)
+  Next
+' 拆分每条记录
+  p = 1
+  For i = 2 To nr
+    Rng = R.Cells(i, col)
+    len_rng = Len(Rng)
+    m = 1
+    Do
+     n = InStr(m, Rng, dmt)
+     If n = 0 Then
+       n = len_rng + 1
+     End If
+     p = p + 1
+     For j = 1 To nc
+       T.Cells(p, j).Value = R.Cells(i, j)
+     Next
+     T.Cells(p, col).Value = Mid(Rng, m, n - m)
+     m = n + 1
+    Loop While m <= len_rng + 1
+  Next
+End Sub
+
+Sub Copy()
+  Set R = Worksheets("Sheet1").Range("A2:AD2041")
+  Set T = Worksheets("Sheet2")
+  nr = R.Rows.Count
+  nc = R.Columns.Count
+  For i = 1 To nr
+    For j = 1 To nc
+      T.Cells(i, j).Value = R.Cells(i, j)
+    Next
+  Next
+End Sub
+
+Sub Missing()
+  Set R = Worksheets("Sheet1").Range("A1:X2150")
+  nr = R.Rows.Count
+  nc = R.Columns.Count
+  For i = 1 To nr
+    For j = 1 To nc
+      If R.Cells(i, j) = "" Then
+        R.Cells(i, j) = -1
+      End If
+    Next
+  Next
+End Sub
+
+Sub 设置格式()
+'
+' 设置格式 Macro
+' 宏由 USER 录制，时间: 2011-4-21
+'
+' 快捷键: Ctrl+t
+'
+
+    nr = Selection.Rows.Count
+    nc = Selection.Columns.Count
+    p = 1
+    q = 2
+    
+    With Selection
+        .Font.ColorIndex = 3
+        .Font.Italic = False
+        .Font.Name = "Verdana"
+        .Font.Size = 10
+        .NumberFormatLocal = "0.00_ "
+        .HorizontalAlignment = xlCenter
+    End With
+    
+    For i = 1 To nr Step p
+        For j = 1 To nc Step q
+            Set rng = Selection.Range(Cells(i, j), Cells(i + p - 1, j + q - 1))
+            rng.Interior.ColorIndex = ((i - 1) / p + (j - 1) / q) Mod 2 + 37
+        Next
+    Next
+End Sub
+
+Sub Transpose()
+  Set R = Worksheets("Sheet1").Range("A2:AY43481")
+  Set T = Worksheets("Sheet2")
+  nr = R.Rows.Count
+  nc = R.Columns.Count
+  ID = "123456789"
+  p = 1
+  
+  Dim jobMaxNum As Integer
+  jobMaxNum = 8
+  
+  Dim jobName(126) As String
+  Dim jobId(126) As Integer
+  Dim jobNameNum As Integer
+  Dim jobIdNum As Integer
+  Dim jobNameFlag As Boolean
+  Dim job(126) As String
+  
+  jobName(1) = "董事长"
+  jobName(2) = "总经理"
+  jobName(3) = "副总经理"
+  jobName(4) = "董秘"
+  jobName(5) = "财务总监"
+  jobName(6) = "独立董事"
+  jobName(7) = "董事"
+  jobName(8) = "监事"
+  jobId(1) = 1
+  jobId(2) = 2
+  jobId(3) = 3
+  jobId(4) = 4
+  jobId(5) = 5
+  jobId(6) = 6
+  jobId(7) = 7
+  jobId(8) = 8
+  
+  job(1) = "董事长"
+  job(2) = "总经理"
+  job(3) = "副总经理"
+  job(4) = "董秘"
+  job(5) = "财务总监"
+  job(6) = "独立董事"
+  job(7) = "董事"
+  job(8) = "监事"
+  
+  jobNameNum = 8
+  jobIdNum = 8
+  
+  Dim jobHeadId(126) As String
+  Dim jobHeadFlag(126) As Integer
+  Dim jobHeadIdNum As Integer
+  Dim jobHeadIdFlag As Boolean
+  
+  jobHeadId(1) = 1
+  jobHeadId(2) = 2
+  jobHeadId(3) = 3
+  jobHeadId(4) = 3
+  jobHeadId(5) = 3
+  jobHeadId(6) = 3
+  jobHeadId(7) = 3
+  jobHeadId(8) = 3
+  jobHeadId(9) = 3
+  jobHeadId(10) = 3
+  jobHeadId(11) = 3
+  jobHeadId(12) = 3
+  jobHeadId(13) = 3
+  jobHeadId(14) = 3
+  jobHeadId(15) = 3
+  jobHeadId(16) = 3
+  jobHeadId(17) = 3
+  jobHeadId(18) = 4
+  jobHeadId(19) = 5
+  jobHeadId(20) = 6
+  jobHeadId(21) = 6
+  jobHeadId(22) = 6
+  jobHeadId(23) = 6
+  jobHeadId(24) = 6
+  jobHeadId(25) = 6
+  jobHeadId(26) = 6
+  jobHeadId(27) = 6
+  jobHeadId(28) = 6
+  jobHeadId(29) = 7
+  jobHeadId(30) = 7
+  jobHeadId(31) = 7
+  jobHeadId(32) = 7
+  jobHeadId(33) = 7
+  jobHeadId(34) = 7
+  jobHeadId(35) = 7
+  jobHeadId(36) = 7
+  jobHeadId(37) = 7
+  jobHeadId(38) = 7
+  jobHeadId(39) = 8
+  jobHeadId(40) = 8
+  jobHeadId(41) = 8
+  jobHeadId(42) = 8
+  jobHeadId(43) = 8
+  jobHeadId(44) = 8
+  jobHeadId(45) = 8
+  jobHeadId(46) = 8
+  jobHeadId(47) = 8
+  jobHeadId(48) = 8
+  jobHeadId(49) = 8
+  jobHeadId(50) = 8
+  jobHeadId(51) = 8
+  jobHeadId(52) = 8
+  jobHeadId(53) = 8
+  jobHeadIdNum = 53
+    
+  For i = 1 To nr
+    If R.Cells(i, 1) <> ID Then
+      p = p + 1
+      ID = R.Cells(i, 1)
+      T.Cells(p, 1).Value = p - 1
+      For j = 1 To 47
+        T.Cells(p, j + 1).Value = R.Cells(i, j).Value
+      Next
+      For j = 1 To jobHeadIdNum
+        jobHeadFlag(j) = 0
+      Next
+    End If
+    
+    thisJobName = R.Cells(i, 48)
+    jobNameFlag = False
+    For j = 1 To jobNameNum
+      If thisJobName = jobName(j) Then
+        jobNameFlag = True
+        thisJobId = jobId(j)
+        Exit For
+      End If
+    Next
+    thisJobId = R.Cells(i, 48)
+    If jobNameFlag = False And jobNameNum < jobMaxNum Then
+      jobNameNum = jobNameNum + 1
+      jobIdNum = jobIdNum + 1
+      jobName(jobNameNum) = thisJobName
+      jobId(jobNameNum) = jobIdNum
+      thisJobId = jobIdNum
+      job(jobIdNum) = thisJobName
+    End If
+    
+    jobHeadIdFlag = False
+    For j = 1 To jobHeadIdNum
+      If jobHeadFlag(j) = 0 And thisJobId = jobHeadId(j) Then
+        jobHeadIdFlag = True
+        Exit For
+      End If
+    Next
+    If jobHeadIdFlag = False And jobHeadIdNum < jobMaxNum Then
+      jobHeadIdNum = jobHeadIdNum + 1
+      jobHeadId(jobHeadIdNum) = thisJobId
+      j = jobHeadIdNum
+    End If
+    
+    If j <= jobHeadIdNum Then
+      jobHeadFlag(j) = 1
+      If j = 1 Then
+      T.Cells(p, 49).Value = R.Cells(i, 49)
+      T.Cells(p, 50).Value = R.Cells(i, 50)
+      T.Cells(p, 51).Value = R.Cells(i, 51)
+      T.Cells(p, 52).Value = "False"
+      Else
+      q = 3 * j + 47
+      T.Cells(p, q).Value = R.Cells(i, 49)
+      T.Cells(p, q + 1).Value = R.Cells(i, 50)
+      T.Cells(p, q + 2).Value = R.Cells(i, 51)
+      End If
+    End If
+  Next
+  
+  T.Cells(1, 1).Value = "序号"
+  T.Cells(1, 2).Value = "股票代码"
+  T.Cells(1, 3).Value = "股票简称"
+  
+  T.Cells(1, 49).Value = job(jobHeadId(1))
+  T.Cells(1, 50).Value = "年薪"
+  T.Cells(1, 51).Value = "持股数量"
+  T.Cells(1, 52).Value = "兼总经理"
+  For j = 2 To jobHeadIdNum
+    T.Cells(1, 3 * j + 47).Value = job(jobHeadId(j))
+    T.Cells(1, 3 * j + 48).Value = "年薪"
+    T.Cells(1, 3 * j + 49).Value = "持股数量"
+  Next
+
+End Sub
+
+
+Sub ClearMissing()
+  Set R = Worksheets("Sheet2").Range("A2:AG2040")
+  nr = R.Rows.Count
+  nc = R.Columns.Count
+  
+  For i = 1 To nr
+    For j = 1 To nc
+      If R.Cells(i, j).Value = -1 Or R.Cells(i, j).Value = -10000 Then
+        R.Cells(i, j).Clear
+      End If
+    Next
+  Next
+End Sub
+
+Sub DJZ()
+  Set R = Worksheets("Sheet2").Range("AH2:AN2040")
+  nr = R.Rows.Count
+  For i = 1 To nr
+    If R.Cells(i, 4).Value = "True" Then
+      R.Cells(i, 5).Value = R.Cells(i, 1)
+      R.Cells(i, 6).Value = R.Cells(i, 2)
+      R.Cells(i, 7).Value = R.Cells(i, 3)
+    End If
+  Next
+End Sub
+
+Sub Color()
+  Dim R As Range
+  Set R = Worksheets("Sheet2").Range("A1:GZ2317")
+  Dim nr As Integer
+  Dim nc As Integer
+  nr = R.Rows.Count
+  nc = R.Columns.Count
+
+  Set Rng = R.Range(Cells(1, 1), Cells(1, 48))
+  With Rng
+    .Interior.ColorIndex = 46
+    .Font.Bold = True
+    .HorizontalAlignment = xlCenter
+  End With
+  
+  Set Rng = R.Range(Cells(1, 49), Cells(1, 52))
+  With Rng
+    .Interior.ColorIndex = 45
+    .Font.Bold = True
+    .HorizontalAlignment = xlCenter
+  End With
+
+  For j = 53 To nc Step 3
+    Set Rng = R.Range(Cells(1, j), Cells(1, j + 2))
+    With Rng
+      .Interior.ColorIndex = (j / 3) Mod 2 + 45
+      .Font.Bold = True
+      .HorizontalAlignment = xlCenter
+    End With
+  Next
+  
+  For i = 2 To nr
+    Set Rng = R.Range(Cells(i, 1), Cells(i, 48))
+    Rng.Interior.ColorIndex = (i + 1) Mod 2 + 37
+    Set Rng = R.Range(Cells(i, 49), Cells(i, 52))
+    Rng.Interior.ColorIndex = (i + j / 3) Mod 2 + 37
+    For j = 53 To nc Step 3
+      Set Rng = R.Range(Cells(i, j), Cells(i, j + 2))
+      Rng.Interior.ColorIndex = (i + j / 3 + 1) Mod 2 + 37
+    Next
+  Next
+
+End Sub
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Sub Transpose()
+  Set R = Worksheets("Sheet1").Range("A2:BB42214")
+  Set T = Worksheets("Sheet2")
+  nr = R.Rows.Count
+  nc = R.Columns.Count
+  ID = "123456789"
+  p = 1
+  
+  Dim jobMaxNum As Integer
+  jobMaxNum = 8
+  
+  Dim jobName(126) As String
+  Dim jobId(126) As Integer
+  Dim jobNameNum As Integer
+  Dim jobIdNum As Integer
+  Dim jobNameFlag As Boolean
+  Dim job(126) As String
+  
+  jobName(1) = "董事长"
+  jobName(2) = "总经理"
+  jobName(3) = "董秘"
+  jobName(4) = "财务总监"
+  jobName(5) = "副总经理"
+  jobName(6) = "独立董事"
+  jobName(7) = "董事"
+  jobName(8) = "监事"
+  jobId(1) = 1
+  jobId(2) = 2
+  jobId(3) = 3
+  jobId(4) = 4
+  jobId(5) = 5
+  jobId(6) = 6
+  jobId(7) = 7
+  jobId(8) = 8
+  
+  job(1) = "董事长"
+  job(2) = "总经理"
+  job(3) = "董秘"
+  job(4) = "财务总监"
+  job(5) = "副总经理"
+  job(6) = "独立董事"
+  job(7) = "董事"
+  job(8) = "监事"
+  
+  jobNameNum = 8
+  jobIdNum = 8
+  
+  Dim jobHeadId(126) As String
+  Dim jobHeadFlag(126) As Integer
+  Dim jobHeadIdNum As Integer
+  Dim jobHeadIdFlag As Boolean
+  
+  jobHeadId(1) = 1
+  jobHeadId(2) = 2
+  jobHeadId(3) = 3
+  jobHeadId(4) = 4
+  jobHeadId(5) = 5
+  jobHeadId(6) = 5
+  jobHeadId(7) = 5
+  jobHeadId(8) = 5
+  jobHeadId(9) = 5
+  jobHeadId(10) = 5
+  jobHeadId(11) = 5
+  jobHeadId(12) = 5
+  jobHeadId(13) = 5
+  jobHeadId(14) = 5
+  jobHeadId(15) = 5
+  jobHeadId(16) = 5
+  jobHeadId(17) = 5
+  jobHeadId(18) = 5
+  jobHeadId(19) = 5
+  jobHeadId(20) = 6
+  jobHeadId(21) = 6
+  jobHeadId(22) = 6
+  jobHeadId(23) = 6
+  jobHeadId(24) = 6
+  jobHeadId(25) = 6
+  jobHeadId(26) = 6
+  jobHeadId(27) = 6
+  jobHeadId(28) = 6
+  jobHeadId(29) = 7
+  jobHeadId(30) = 7
+  jobHeadId(31) = 7
+  jobHeadId(32) = 7
+  jobHeadId(33) = 7
+  jobHeadId(34) = 7
+  jobHeadId(35) = 7
+  jobHeadId(36) = 7
+  jobHeadId(37) = 7
+  jobHeadId(38) = 7
+  jobHeadId(39) = 8
+  jobHeadId(40) = 8
+  jobHeadId(41) = 8
+  jobHeadId(42) = 8
+  jobHeadId(43) = 8
+  jobHeadId(44) = 8
+  jobHeadId(45) = 8
+  jobHeadId(46) = 8
+  jobHeadId(47) = 8
+  jobHeadId(48) = 8
+  jobHeadId(49) = 8
+  jobHeadId(50) = 8
+  jobHeadId(51) = 8
+  jobHeadId(52) = 8
+  jobHeadId(53) = 8
+  jobHeadIdNum = 53
+    
+  For i = 1 To nr
+    If R.Cells(i, 1) <> ID Then
+      p = p + 1
+      ID = R.Cells(i, 1)
+      T.Cells(p, 1).Value = p - 1
+      For j = 1 To 50
+        T.Cells(p, j + 1).Value = R.Cells(i, j).Value
+      Next
+      For j = 1 To jobHeadIdNum
+        jobHeadFlag(j) = 0
+      Next
+    End If
+    
+    thisJobName = R.Cells(i, 51)
+    jobNameFlag = False
+    For j = 1 To jobNameNum
+      If thisJobName = jobName(j) Then
+        jobNameFlag = True
+        thisJobId = jobId(j)
+        Exit For
+      End If
+    Next
+    If jobNameFlag = False And jobNameNum < jobMaxNum Then
+      jobNameNum = jobNameNum + 1
+      jobIdNum = jobIdNum + 1
+      jobName(jobNameNum) = thisJobName
+      jobId(jobNameNum) = jobIdNum
+      thisJobId = jobIdNum
+      job(jobIdNum) = thisJobName
+    End If
+    
+    jobHeadIdFlag = False
+    For j = 1 To jobHeadIdNum
+      If jobHeadFlag(j) = 0 And thisJobId = jobHeadId(j) Then
+        jobHeadIdFlag = True
+        Exit For
+      End If
+    Next
+    If jobHeadIdFlag = False And jobHeadIdNum < jobMaxNum Then
+      jobHeadIdNum = jobHeadIdNum + 1
+      jobHeadId(jobHeadIdNum) = thisJobId
+      j = jobHeadIdNum
+    End If
+    If j <= jobHeadIdNum Then
+      jobHeadFlag(j) = 1
+      If j = 1 Then
+      T.Cells(p, 52).Value = R.Cells(i, 52)
+      T.Cells(p, 53).Value = R.Cells(i, 53)
+      T.Cells(p, 54).Value = R.Cells(i, 54)
+      T.Cells(p, 55).Value = "False"
+      Else
+      T.Cells(p, 3 * j + 50).Value = R.Cells(i, 52)
+      T.Cells(p, 3 * j + 51).Value = R.Cells(i, 53)
+      T.Cells(p, 3 * j + 52).Value = R.Cells(i, 54)
+      End If
+    End If
+  Next
+  
+  T.Cells(1, 1).Value = "序号"
+  For j = 1 To 50
+    T.Cells(1, j + 1).Value = R.Cells(0, j).Value
+  Next
+  T.Cells(1, 52).Value = job(jobHeadId(1))
+  T.Cells(1, 53).Value = "年薪"
+  T.Cells(1, 54).Value = "持股数量"
+  T.Cells(1, 55).Value = "兼总经理"
+  For j = 2 To jobHeadIdNum
+    T.Cells(1, 3 * j + 50).Value = job(jobHeadId(j))
+    T.Cells(1, 3 * j + 51).Value = "年薪"
+    T.Cells(1, 3 * j + 52).Value = "持股数量"
+  Next
+
+End Sub
+
+
+Sub DJZ()
+  Set R = Worksheets("Sheet2").Range("AH2:AN2040")
+  nr = R.Rows.Count
+  For i = 1 To nr
+    If R.Cells(i, 4).Value = "True" Then
+      R.Cells(i, 5).Value = R.Cells(i, 1)
+      R.Cells(i, 6).Value = R.Cells(i, 2)
+      R.Cells(i, 7).Value = R.Cells(i, 3)
+    End If
+  Next
+End Sub
+
+Sub Color()
+  Dim R As Range
+  Set R = Worksheets("Sheet2").Range("A1:GK2040")
+  Dim nr As Integer
+  Dim nc As Integer
+  nr = R.Rows.Count
+  nc = R.Columns.Count
+
+  Set rng = R.Range(Cells(1, 1), Cells(1, 33))
+  With rng
+    .Interior.ColorIndex = 46
+    .Font.Bold = True
+    .HorizontalAlignment = xlCenter
+  End With
+  
+  Set rng = R.Range(Cells(1, 34), Cells(1, 37))
+  With rng
+    .Interior.ColorIndex = 45
+    .Font.Bold = True
+    .HorizontalAlignment = xlCenter
+  End With
+
+  For j = 38 To nc Step 3
+    Set rng = R.Range(Cells(1, j), Cells(1, j + 2))
+    With rng
+      .Interior.ColorIndex = (j / 3) Mod 2 + 45
+      .Font.Bold = True
+      .HorizontalAlignment = xlCenter
+    End With
+  Next
+  
+  For i = 2 To nr
+    Set rng = R.Range(Cells(i, 1), Cells(i, 33))
+    rng.Interior.ColorIndex = i Mod 2 + 37
+    Set rng = R.Range(Cells(i, 34), Cells(i, 37))
+    rng.Interior.ColorIndex = (i + j / 3) Mod 2 + 37
+    For j = 38 To nc Step 3
+      Set rng = R.Range(Cells(i, j), Cells(i, j + 2))
+      rng.Interior.ColorIndex = (i + j / 3 + 1) Mod 2 + 37
+    Next
+  Next
+
+End Sub
+
+
+
+=IF(AND(AW2317=BA2317,AW2317<>""),TRUE,FALSE)

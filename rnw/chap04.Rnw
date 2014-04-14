@@ -1,0 +1,257 @@
+\newpage
+\section{平均值分析}
+<<results='asis'>>=
+sql = "select * from RZ_Salary_Stock"
+dt = fetch(dbSendQuery(connect,sql))
+data = data.frame(dt,未披露样本数=num.company-dt$样本数)
+names(data) = c("类别","本年平均值","已披露样本数","未披露样本数")
+data.table = xtable(data,digits=0)
+caption(data.table)= paste("上市公司高管薪酬及持股市值均值 (本年度总样本数",num.company,"家)")
+print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+@
+
+\newpage
+\subsection{分行业名称高管年薪平均值及排序}
+<<results='asis'>>=
+sql = "select 行业名称,年薪 from RZ_Salary_Top"
+dataset = fetch(dbSendQuery(connect,sql),-1)
+result = ddply(dataset,.(行业名称),summarize,"样本数"=length(年薪),"均值"=mean(年薪))
+sql = "select 行业名称,样本数,均值 from result order by 均值 desc"
+dt = join(sqldf(sql),hangye,by="行业名称")
+data = data.frame(attr(dt,'row.names'),dt$行业名称,dt$行业编码,dt$样本数,dt$均值)
+names(data) = c("排名","行业名称","行业编码","样本数(家)","均值(元)")
+data.table = xtable(data,digits=0)
+caption(data.table)= paste("分行业名称\\textbf{最高}年薪平均值及排序 (有效样本",data.salary[3,2],"家)",sep="")
+print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+@
+
+<<results='asis'>>=
+sql = "select 行业名称,职位秩序,年薪 from RZ_Salary_One where 职位秩序<=32"
+dataset = fetch(dbSendQuery(connect,sql),-1)
+result = ddply(dataset,.(职位秩序,行业名称),summarize,"样本数"=length(年薪),"均值"=mean(年薪))
+for (i in 1:6) {
+  职位内容 = iterator$职位内容[i]
+  职位秩序 = iterator$职位秩序[i]
+  sql = paste("select 行业名称,样本数,均值 from result where 职位秩序=", 职位秩序, "order by 均值 desc")
+  dt = join(sqldf(sql),hangye,by="行业名称")
+  data = data.frame(attr(dt,'row.names'),dt$行业名称,dt$行业编码,dt$样本数,dt$均值)
+  names(data) = c("排名","行业名称","行业编码","样本数(家)","均值(元)")
+  data.table = xtable(data,digits=0)
+  caption(data.table)= paste("分行业名称\\textbf{",职位内容,"}年薪平均值及排序 (有效样本",data.salary[3,i+2],"家)",sep="")
+  print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+}
+@
+
+\newpage
+\subsection{分行业名称高管持股市值平均值及排序}
+<<results='asis'>>=
+sql = "select 行业名称,职位秩序,持股市值 from RZ_Stock_One where 职位秩序<32"
+dataset = fetch(dbSendQuery(connect,sql),-1)
+result = ddply(dataset,.(职位秩序,行业名称),summarize,"样本数"=length(持股市值),"均值"=mean(持股市值))
+for (i in 1:5) {
+  职位内容 = iterator$职位内容[i]
+  职位秩序 = iterator$职位秩序[i]
+  sql = paste("select 行业名称,样本数,均值 from result where 职位秩序=", 职位秩序, "order by 均值 desc")
+  dt = join(sqldf(sql),hangye,by="行业名称")
+  data = data.frame(attr(dt,'row.names'),dt$行业名称,dt$行业编码,dt$样本数,dt$均值)
+  names(data) = c("排名","行业名称","行业编码","样本数(家)","均值(元)")
+  data.table = xtable(data,digits=0)
+  caption(data.table)= paste("分行业名称\\textbf{",职位内容,"}持股市值平均值及排序 (有效样本",data.stock[3,i+1],"家)",sep="")
+  print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+}
+@
+
+\newpage
+\subsection{分地域高管年薪平均值及排序}
+<<results='asis'>>=
+sql = "select 地域,年薪 from RZ_Salary_Top"
+dataset = fetch(dbSendQuery(connect,sql),-1)
+result = ddply(dataset,.(地域),summarize,"样本数"=length(年薪),"均值"=mean(年薪))
+sql = "select 地域,样本数,均值 from result order by 均值 desc"
+dt = sqldf(sql)
+data = data.frame(attr(dt,'row.names'),dt)
+names(data) = c("排名","地域","样本数(家)","均值(元)")
+data.table = xtable(data,digits=0)
+caption(data.table)= paste("分地域\\textbf{最高}年薪平均值及排序 (有效样本",data.salary[3,2],"家)",sep="")
+print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+@
+
+<<results='asis'>>=
+sql = "select 地域,职位秩序,年薪 from RZ_Salary_One where 职位秩序<=32"
+dataset = fetch(dbSendQuery(connect,sql),-1)
+result = ddply(dataset,.(职位秩序,地域),summarize,"样本数"=length(年薪),"均值"=mean(年薪))
+for (i in 1:6) {
+  职位内容 = iterator$职位内容[i]
+  职位秩序 = iterator$职位秩序[i]
+  sql = paste("select 地域,样本数,均值 from result where 职位秩序=", 职位秩序, "order by 均值 desc")
+  dt = sqldf(sql)
+  data = data.frame(attr(dt,'row.names'),dt)
+  names(data) = c("排名","地域","样本数(家)","均值(元)")
+  data.table = xtable(data,digits=0)
+  caption(data.table)= paste("分地域\\textbf{",职位内容,"}年薪平均值及排序 (有效样本",data.salary[3,i+2],"家)",sep="")
+  print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+}
+@
+
+\newpage
+\subsection{分地域高管持股市值平均值及排序}
+<<results='asis'>>=
+sql = "select 地域,职位秩序,持股市值 from RZ_Stock_One where 职位秩序<32"
+dataset = fetch(dbSendQuery(connect,sql),-1)
+result = ddply(dataset,.(职位秩序,地域),summarize,"样本数"=length(持股市值),"均值"=mean(持股市值))
+for (i in 1:5) {
+  职位内容 = iterator$职位内容[i]
+  职位秩序 = iterator$职位秩序[i]
+  sql = paste("select 地域,样本数,均值 from result where 职位秩序=", 职位秩序, "order by 均值 desc")
+  dt = sqldf(sql)
+  data = data.frame(attr(dt,'row.names'),dt)
+  names(data) = c("排名","地域","样本数(家)","均值(元)")
+  data.table = xtable(data,digits=0)
+  caption(data.table)= paste("分地域\\textbf{",职位内容,"}持股市值平均值及排序 (有效样本",data.stock[3,i+1],"家)",sep="")
+  print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+}
+@
+
+\newpage
+\subsection{分企业属性高管年薪平均值及排序}
+<<results='asis'>>=
+sql = "select 企业属性,年薪 from RZ_Salary_Top"
+dataset = fetch(dbSendQuery(connect,sql),-1)
+result = ddply(dataset,.(企业属性),summarize,"样本数"=length(年薪),"均值"=mean(年薪))
+sql = "select 企业属性,样本数,均值 from result order by 均值 desc"
+dt = sqldf(sql)
+data = data.frame(attr(dt,'row.names'),dt)
+names(data) = c("排名","企业属性","样本数(家)","均值(元)")
+data.table = xtable(data,digits=0)
+caption(data.table)= paste("分企业属性\\textbf{最高}年薪平均值及排序 (有效样本",data.salary[3,2],"家)",sep="")
+print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+@
+
+<<results='asis'>>=
+sql = "select 企业属性,职位秩序,年薪 from RZ_Salary_One where 职位秩序<=32"
+dataset = fetch(dbSendQuery(connect,sql),-1)
+result = ddply(dataset,.(职位秩序,企业属性),summarize,"样本数"=length(年薪),"均值"=mean(年薪))
+for (i in 1:6) {
+  职位内容 = iterator$职位内容[i]
+  职位秩序 = iterator$职位秩序[i]
+  sql = paste("select 企业属性,样本数,均值 from result where 职位秩序=", 职位秩序, "order by 均值 desc")
+  dt = sqldf(sql)
+  data = data.frame(attr(dt,'row.names'),dt)
+  names(data) = c("排名","企业属性","样本数(家)","均值(元)")
+  data.table = xtable(data,digits=0)
+  caption(data.table)= paste("分企业属性\\textbf{",职位内容,"}年薪平均值及排序 (有效样本",data.salary[3,i+2],"家)",sep="")
+  print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+}
+@
+
+\newpage
+\subsection{分企业属性高管持股市值平均值及排序}
+<<results='asis'>>=
+sql = "select 企业属性,职位秩序,持股市值 from RZ_Stock_One where 职位秩序<32"
+dataset = fetch(dbSendQuery(connect,sql),-1)
+result = ddply(dataset,.(职位秩序,企业属性),summarize,"样本数"=length(持股市值),"均值"=mean(持股市值))
+for (i in 1:5) {
+  职位内容 = iterator$职位内容[i]
+  职位秩序 = iterator$职位秩序[i]
+  sql = paste("select 企业属性,样本数,均值 from result where 职位秩序=", 职位秩序, "order by 均值 desc")
+  dt = sqldf(sql)
+  data = data.frame(attr(dt,'row.names'),dt)
+  names(data) = c("排名","企业属性","样本数(家)","均值(元)")
+  data.table = xtable(data,digits=0)
+  caption(data.table)= paste("分企业属性\\textbf{",职位内容,"}持股市值平均值及排序 (有效样本",data.stock[3,i+1],"家)",sep="")
+  print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+}
+@
+
+\newpage
+\subsection{分板块高管年薪平均值及排序}
+<<results='asis'>>=
+sql = "select 板块,年薪 from RZ_Salary_Top"
+dataset = fetch(dbSendQuery(connect,sql),-1)
+result = ddply(dataset,.(板块),summarize,"样本数"=length(年薪),"均值"=mean(年薪))
+sql = "select 板块,样本数,均值 from result order by 均值 desc"
+dt = sqldf(sql)
+data = data.frame(attr(dt,'row.names'),dt)
+names(data) = c("排名","板块","样本数(家)","均值(元)")
+data.table = xtable(data,digits=0)
+caption(data.table)= paste("分板块\\textbf{最高}年薪平均值及排序 (有效样本",data.salary[3,2],"家)",sep="")
+print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+@
+
+<<results='asis'>>=
+sql = "select 板块,职位秩序,年薪 from RZ_Salary_One where 职位秩序<=32"
+dataset = fetch(dbSendQuery(connect,sql),-1)
+result = ddply(dataset,.(职位秩序,板块),summarize,"样本数"=length(年薪),"均值"=mean(年薪))
+for (i in 1:6) {
+  职位内容 = iterator$职位内容[i]
+  职位秩序 = iterator$职位秩序[i]
+  sql = paste("select 板块,样本数,均值 from result where 职位秩序=", 职位秩序, "order by 均值 desc")
+  dt = sqldf(sql)
+  data = data.frame(attr(dt,'row.names'),dt)
+  names(data) = c("排名","板块","样本数(家)","均值(元)")
+  data.table = xtable(data,digits=0)
+  caption(data.table)= paste("分板块\\textbf{",职位内容,"}年薪平均值及排序 (有效样本",data.salary[3,i+2],"家)",sep="")
+  print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+}
+@
+
+\newpage
+\subsection{分板块高管持股市值平均值及排序}
+<<results='asis'>>=
+sql = "select 板块,职位秩序,持股市值 from RZ_Stock_One where 职位秩序<32"
+dataset = fetch(dbSendQuery(connect,sql),-1)
+result = ddply(dataset,.(职位秩序,板块),summarize,"样本数"=length(持股市值),"均值"=mean(持股市值))
+for (i in 1:5) {
+  职位内容 = iterator$职位内容[i]
+  职位秩序 = iterator$职位秩序[i]
+  sql = paste("select 板块,样本数,均值 from result where 职位秩序=", 职位秩序, "order by 均值 desc")
+  dt = sqldf(sql)
+  data = data.frame(attr(dt,'row.names'),dt)
+  names(data) = c("排名","板块","样本数(家)","均值(元)")
+  data.table = xtable(data,digits=0)
+  caption(data.table)= paste("分板块\\textbf{",职位内容,"}持股市值平均值及排序 (有效样本",data.stock[3,i+1],"家)",sep="")
+  print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+}
+@
+
+\newpage
+\subsection{高管薪酬占比平均值分析}
+<<results='asis'>>=
+  sql = "select 行业名称,行业编码,count(股票代码),avg(高管薪酬占比) as 均值 from RZ_Company_All where 高管薪酬占比>0 group by 行业编码 order by 均值 desc"
+  dt = fetch(dbSendQuery(connect,sql))
+  data = data.frame(attr(dt,'row.names'),dt)
+  names(data) = c("排名","行业名称","行业代码","样本数(家)","均值(%)")
+  data.table = xtable(data,digits=c(0,0,0,0,0,8))
+  caption(data.table)= paste("分行业高管薪酬占比平均值及排序 (有效样本",num.rate,"家)",sep="")
+  print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+@
+\newpage
+<<results='asis'>>=
+  sql = "select 地域,count(股票代码),avg(高管薪酬占比) as 均值 from RZ_Company_All where 高管薪酬占比>0 group by 地域 order by 均值 desc"
+  dt = fetch(dbSendQuery(connect,sql))
+  data = data.frame(attr(dt,'row.names'),dt)
+  names(data) = c("排名","地域","样本数(家)","均值(%)")
+  data.table = xtable(data,digits=c(0,0,0,0,8))
+  caption(data.table)= paste("分地域高管薪酬占比平均值及排序 (有效样本",num.rate,"家)",sep="")
+  print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+@
+
+<<results='asis'>>=
+  sql = "select 企业属性,count(股票代码),avg(高管薪酬占比) as 均值 from RZ_Company_All where 高管薪酬占比>0 group by 企业属性 order by 均值 desc"
+  dt = fetch(dbSendQuery(connect,sql))
+  data = data.frame(attr(dt,'row.names'),dt)
+  names(data) = c("排名","企业属性","样本数(家)","均值(%)")
+  data.table = xtable(data,digits=c(0,0,0,0,8))
+  caption(data.table)= paste("分企业属性高管薪酬占比平均值及排序 (有效样本",num.rate,"家)",sep="")
+  print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+@
+
+<<results='asis'>>=
+  sql = "select 板块,count(股票代码),avg(高管薪酬占比) as 均值 from RZ_Company_All where 高管薪酬占比>0 group by 板块 order by 均值 desc"
+  dt = fetch(dbSendQuery(connect,sql))
+  data = data.frame(attr(dt,'row.names'),dt)
+  names(data) = c("排名","板块","样本数(家)","均值(%)")
+  data.table = xtable(data,digits=c(0,0,0,0,8))
+  caption(data.table)= paste("分板块高管薪酬占比平均值及排序 (有效样本",num.rate,"家)",sep="")
+  print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+@

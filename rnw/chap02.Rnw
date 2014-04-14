@@ -1,0 +1,141 @@
+\newpage
+\section{最值分析}
+%排行榜遵循以下规则
+%\begin{itemize}
+%\item 每位高管, 同类榜单只上榜一次;
+%\item 不能以董事长上榜, 若能以总经理上榜, 则以总经理身份上榜, 并依次类推;
+%\item 每家公司, 同张榜单只上榜一次.
+%\end{itemize}
+
+\subsection{高管年薪排行前 20 位}
+<<results='asis'>>=
+sql = "select substr(股票代码,1,6),股票简称,地域,行业编码,年薪,职位,高管姓名 from RZ_Rank_Top limit 0,20"
+dt = fetch(dbSendQuery(connect,sql))
+data = data.frame(attr(dt,'row.names'),dt)
+names(data) = c("排名","股票代码","股票简称","地域","行业编码","年薪(元)","职位","姓名")
+data.table = xtable(data,digits=0)
+caption(data.table)= paste(this.year," 年\\textbf{最高}年薪排行前 20 位 (有效样本",data.salary$最高年薪[3],"家)")
+print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+@
+
+<<results='asis'>>=
+sql = "select substr(股票代码,1,6),股票简称,地域,行业编码,年薪,职位,高管姓名 from RZ_Rank_Top limit 20,10"
+dt = fetch(dbSendQuery(connect,sql))
+data = data.frame(attr(dt,'row.names'),dt)
+names(data) = c("排名","股票代码","股票简称","地域","行业编码","年薪(元)","职位","姓名")
+data.table = xtable(data,digits=0)
+caption(data.table)= paste(this.year," 年\\textbf{最高}年薪排行后 10 位 (有效样本",data.salary$最高年薪[3],"家)")
+print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+@
+
+\newpage
+<<results='asis'>>=
+for (i in 1:6) {
+  职位内容 = iterator$职位内容[i]
+  职位秩序 = iterator$职位秩序[i]
+  sql = paste("select substr(股票代码,1,6),股票简称,地域,行业编码,高管姓名,年薪 from RZ_Rank_Salary limit ",20*(i-1),",20")
+  dt = fetch(dbSendQuery(connect,sql))
+  data = data.frame(attr(dt,'row.names'),dt)
+  names(data) = c("排名","股票代码","股票简称","地域","行业编码",职位内容,"年薪(元)")
+  data.table = xtable(data,digits=0)
+  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪排行前 20 位 (有效样本",data.salary[3,i+2],"家)",sep="")
+  print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+}
+@
+
+\newpage
+\subsection{高管持股市值排行前 20 位}
+<<results='asis'>>=
+for (i in 1:5) {
+  职位内容 = iterator$职位内容[i]
+  职位秩序 = iterator$职位秩序[i]
+  sql = paste("select substr(股票代码,1,6),股票简称,地域,行业编码,高管姓名,持股数量,持股市值 from RZ_Rank_Stock limit ",20*(i-1),",20")
+  dt = fetch(dbSendQuery(connect,sql))
+  data = data.frame(attr(dt,'row.names'),dt)
+  names(data) = c("排名","股票代码","股票简称","地域","行业编码",职位内容,"年末持股数量(股)","年末持股市值(元)")
+  data.table = xtable(data,digits=0)
+  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}持股市值排行前 20 位 (有效样本",data.stock[3,i+1],"家)",sep="")
+  print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+}
+@
+
+\newpage
+\subsection{最有价值独立董事排行前 20 位}
+<<results='asis'>>=
+sql = "select 高管姓名,股票简称,年薪,合计年薪 from RZ_Salary_9 limit 35"
+data = fetch(dbSendQuery(connect,sql))
+data.table = xtable(data,digits=0)
+caption(data.table)= paste(this.year," 年最有价值\\textbf{独立董事}年薪排行前 20 位 (有效样本",data.salary$独立董事[3],"家, 第一部分)")
+print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+@
+
+<<results='asis'>>=
+sql = "select 高管姓名,股票简称,年薪,合计年薪 from RZ_Salary_9 limit 35,35"
+data = fetch(dbSendQuery(connect,sql))
+data.table = xtable(data,digits=0)
+caption(data.table)= paste(this.year," 年最有价值\\textbf{独立董事}年薪排行前 20 位 (有效样本",data.salary$独立董事[3],"家, 第二部分)")
+print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+@
+
+<<results='asis'>>=
+sql = "select 高管姓名,股票简称,年薪,合计年薪 from RZ_Salary_9 limit 70,100"
+data = fetch(dbSendQuery(connect,sql))
+data.table = xtable(data,digits=0)
+caption(data.table)= paste(this.year," 年最有价值\\textbf{独立董事}年薪排行前 20 位 (有效样本",data.salary$独立董事[3],"家, 第三部分)")
+print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+@
+
+\newpage
+\subsection{年度最大升幅升值排行榜前 20 位}
+<<results='asis'>>=
+sql = "select substr(股票代码,1,6) as 股票代码,股票简称,地域,行业编码,今年年薪,去年年薪,升幅,职位,高管姓名
+	from RZ_Salary_Increase order by 升幅 desc limit 0,35"
+data = fetch(dbSendQuery(connect,sql))
+data.table = xtable(data,digits=c(0,0,0,0,0,0,0,8,0,0))
+caption(data.table)= paste(this.year," 年度年薪\\textbf{最大升幅}排行前 20 位")
+print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+@
+
+<<results='asis'>>=
+sql = "select substr(股票代码,1,6) as 股票代码,股票简称,地域,行业编码,今年年薪,去年年薪,升值,职位,高管姓名
+	from RZ_Salary_Increase order by 升值 desc limit 0,35"
+data = fetch(dbSendQuery(connect,sql))
+data.table = xtable(data,digits=0)
+caption(data.table)= paste(this.year," 年度年薪\\textbf{最大升值}排行前 20 位")
+print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+@
+
+\newpage
+\subsection{年度最大降幅降值排行榜前 20 位}
+<<results='asis'>>=
+sql = "select substr(股票代码,1,6) as 股票代码,股票简称,地域,行业编码,今年年薪,去年年薪,升幅,职位,高管姓名
+	from RZ_Salary_Increase order by 升幅 asc limit 0,35"
+data = fetch(dbSendQuery(connect,sql))
+data.table = xtable(data,digits=c(0,0,0,0,0,0,0,8,0,0))
+caption(data.table)= paste(this.year," 年度年薪\\textbf{最大降幅}排行前 20 位")
+print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+@
+
+<<results='asis'>>=
+sql = "select substr(股票代码,1,6) as 股票代码,股票简称,地域,行业编码,今年年薪,去年年薪,升值,职位,高管姓名
+	from RZ_Salary_Increase order by 升值 asc limit 0,35"
+data = fetch(dbSendQuery(connect,sql))
+data.table = xtable(data,digits=0)
+caption(data.table)= paste(this.year," 年度年薪\\textbf{最大降值}排行前 20 位")
+print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+@
+
+\newpage
+\subsection{身兼多职高管年薪排行前 20 位}
+<<results='asis'>>=
+sql = "select substr(股票代码,1,6) as 股票代码,股票简称,地域,行业编码,高管姓名,年薪
+	from RZ_Salary_All a group by a.股票代码,高管姓名 having sum(职位秩序)=24
+	order by 年薪 desc limit 35"
+dt = fetch(dbSendQuery(connect,sql))
+data = data.frame(attr(dt,'row.names'),dt)
+names(data) = c("排名","股票代码","股票简称","地域","行业编码","董秘兼财务总监","年薪(元)")
+data.table = xtable(data,digits=0)
+caption(data.table)= paste(this.year,"年\\textbf{董秘兼财务总监}年薪排行前 20 位")
+print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+@
+

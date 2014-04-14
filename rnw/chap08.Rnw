@@ -1,0 +1,161 @@
+\newpage
+\section{相关性分析}
+\subsection{高管持股市值与公司业绩的相关性分析}
+<<results='asis'>>=
+for (i in 1:5) {
+  职位内容 = iterator$职位内容[i]
+  职位秩序 = iterator$职位秩序[i]
+  sql = paste("select * from RZ_Stock_One where 职位秩序=",
+              职位秩序, "and 每股收益>0 and 净资产收益率>0 and 营业收入>0 and 净利润>0")
+  data = fetch(dbSendQuery(connect,sql),-1)
+  c1 = cor.test(data$持股市值,data$每股收益)
+  c2 = cor.test(data$持股市值,data$净资产收益率)
+  c3 = cor.test(data$持股市值,data$营业收入)
+  c4 = cor.test(data$持股市值,data$净利润)
+  df = data.frame(
+    持股市值 = c("每股收益","净资产收益率","营业收入","净利润"),
+    相关度 = c(as.double(c1$estimate),as.double(c2$estimate),as.double(c3$estimate),as.double(c4$estimate)),
+    显著度 = c(c1$p.value,c2$p.value,c3$p.value,c4$p.value),
+    样本数 = c(as.integer(c1$parameter),as.integer(c2$parameter),as.integer(c3$parameter),as.integer(c4$parameter))+1
+  )
+  names(df)[1] = paste(职位内容, "持股市值")
+  data.table = xtable(df,digits=c(0,0,8,8,0))
+  caption(data.table)= paste("\\textbf{",职位内容,"}持股市值与公司业绩的相关性分析",sep="")
+  print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+}
+@
+
+<<results='asis'>>=
+for (i in 1:5) {
+  职位内容 = iterator$职位内容[i]
+  职位秩序 = iterator$职位秩序[i]
+  sql = paste("select * from RZ_Stock_Group where 职位秩序=",
+              职位秩序, "and 每股收益>0 and 净资产收益率>0 and 营业收入>0 and 净利润>0")
+  data = fetch(dbSendQuery(connect,sql),-1)
+  c1 = cor.test(data$持股市值,data$每股收益)
+  c2 = cor.test(data$持股市值,data$净资产收益率)
+  c3 = cor.test(data$持股市值,data$营业收入)
+  c4 = cor.test(data$持股市值,data$净利润)
+  df = data.frame(
+    持股市值 = c("每股收益","净资产收益率","营业收入","净利润"),
+    相关度 = c(as.double(c1$estimate),as.double(c2$estimate),as.double(c3$estimate),as.double(c4$estimate)),
+    显著度 = c(c1$p.value,c2$p.value,c3$p.value,c4$p.value),
+    样本数 = c(as.integer(c1$parameter),as.integer(c2$parameter),as.integer(c3$parameter),as.integer(c4$parameter))+1
+  )
+  names(df)[1] = paste(职位内容, "持股市值")
+  data.table = xtable(df,digits=c(0,0,8,8,0))
+  caption(data.table)= paste("全部持股之\\textbf{",职位内容,"}持股市值与公司业绩的相关性分析",sep="")
+  print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+}
+@
+
+\newpage
+\subsection{高管年薪与公司业绩的相关性分析}
+<<results='asis'>>=
+  sql = "select * from RZ_Salary_Top where 每股收益>0 and 净资产收益率>0 and 营业收入>0 and 净利润>0"
+  data = fetch(dbSendQuery(connect,sql),-1)
+  c1 = cor.test(data$年薪,data$每股收益)
+  c2 = cor.test(data$年薪,data$净资产收益率)
+  c3 = cor.test(data$年薪,data$营业收入)
+  c4 = cor.test(data$年薪,data$净利润)
+  df = data.frame(
+    年薪 = c("每股收益","净资产收益率","营业收入","净利润"),
+    相关度 = c(as.double(c1$estimate),as.double(c2$estimate),as.double(c3$estimate),as.double(c4$estimate)),
+    显著度 = c(c1$p.value,c2$p.value,c3$p.value,c4$p.value),
+    样本数 = c(as.integer(c1$parameter),as.integer(c2$parameter),as.integer(c3$parameter),as.integer(c4$parameter))+1
+  )
+  names(df)[1] = "最高年薪"
+  data.table = xtable(df,digits=c(0,0,8,8,0))
+  caption(data.table)= "\\textbf{最高}年薪与公司业绩的相关性分析"
+  print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+@
+
+<<results='asis'>>=
+for (i in 1:6) {
+  职位内容 = iterator$职位内容[i]
+  职位秩序 = iterator$职位秩序[i]
+  sql = paste("select * from RZ_Salary_One where 职位秩序=",
+              职位秩序, "and 每股收益>0 and 净资产收益率>0 and 营业收入>0 and 净利润>0")
+  data = fetch(dbSendQuery(connect,sql),-1)
+  c1 = cor.test(data$年薪,data$每股收益)
+  c2 = cor.test(data$年薪,data$净资产收益率)
+  c3 = cor.test(data$年薪,data$营业收入)
+  c4 = cor.test(data$年薪,data$净利润)
+  df = data.frame(
+    年薪 = c("每股收益","净资产收益率","营业收入","净利润"),
+    相关度 = c(as.double(c1$estimate),as.double(c2$estimate),as.double(c3$estimate),as.double(c4$estimate)),
+    显著度 = c(c1$p.value,c2$p.value,c3$p.value,c4$p.value),
+    样本数 = c(as.integer(c1$parameter),as.integer(c2$parameter),as.integer(c3$parameter),as.integer(c4$parameter))+1
+  )
+  names(df)[1] = paste(职位内容, "年薪")
+  data.table = xtable(df,digits=c(0,0,8,8,0))
+  caption(data.table)= paste("\\textbf{",职位内容,"}年薪与公司业绩的相关性分析",sep="")
+  print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+}
+@
+
+\newpage
+\subsection{高管持股市值与公司规模的相关性分析}
+<<results='asis'>>=
+for (i in 1:5) {
+  职位内容 = iterator$职位内容[i]
+  职位秩序 = iterator$职位秩序[i]
+  sql = paste("select * from RZ_Stock_One where 职位秩序=",
+              职位秩序, "and 总资产>0 and 总股本>0")
+  data = fetch(dbSendQuery(connect,sql),-1)
+  c1 = cor.test(data$持股市值,data$总资产)
+  c2 = cor.test(data$持股市值,data$总股本)
+  df = data.frame(
+    持股市值 = c("总资产","总股本"),
+    相关度 = c(as.double(c1$estimate),as.double(c2$estimate)),
+    显著度 = c(c1$p.value,c2$p.value),
+    样本数 = c(as.integer(c1$parameter),as.integer(c2$parameter))+1
+  )
+  names(df)[1] = paste(职位内容, "持股市值")
+  data.table = xtable(df,digits=c(0,0,8,8,0))
+  caption(data.table)= paste("\\textbf{",职位内容,"}持股市值与公司规模的相关性分析",sep="")
+  print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+}
+@
+
+\newpage
+\subsection{高管年薪与公司规模的相关性分析}
+<<results='asis'>>=
+  sql = "select * from RZ_Salary_Top where 总资产>0 and 总股本>0"
+  data = fetch(dbSendQuery(connect,sql),-1)
+  c1 = cor.test(data$年薪,data$总资产)
+  c2 = cor.test(data$年薪,data$总股本)
+  df = data.frame(
+    年薪 = c("总资产","总股本"),
+    相关度 = c(as.double(c1$estimate),as.double(c2$estimate)),
+    显著度 = c(c1$p.value,c2$p.value),
+    样本数 = c(as.integer(c1$parameter),as.integer(c2$parameter))+1
+  )
+  names(df)[1] = "最高年薪"
+  data.table = xtable(df,digits=c(0,0,8,8,0))
+  caption(data.table)= "\\textbf{最高}年薪与公司规模的相关性分析"
+  print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+@
+
+
+<<results='asis'>>=
+for (i in 1:6) {
+  职位内容 = iterator$职位内容[i]
+  职位秩序 = iterator$职位秩序[i]
+  sql = paste("select * from RZ_Salary_One where 职位秩序=",
+              职位秩序, "and 总资产>0 and 总股本>0")
+  data = fetch(dbSendQuery(connect,sql),-1)
+  c1 = cor.test(data$年薪,data$总资产)
+  c2 = cor.test(data$年薪,data$总股本)
+  df = data.frame(
+    年薪 = c("总资产","总股本"),
+    相关度 = c(as.double(c1$estimate),as.double(c2$estimate)),
+    显著度 = c(c1$p.value,c2$p.value),
+    样本数 = c(as.integer(c1$parameter),as.integer(c2$parameter))+1
+  )
+  names(df)[1] = paste(职位内容, "年薪")
+  data.table = xtable(df,digits=c(0,0,8,8,0))
+  caption(data.table)= paste("\\textbf{",职位内容,"}年薪与公司规模的相关性分析",sep="")
+  print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+}
+@

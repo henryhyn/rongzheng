@@ -14,12 +14,22 @@ dt = fetch(dbSendQuery(connect,sql))
 data = data.frame(attr(dt,'row.names'),dt)
 names(data) = c("排名","股票代码","股票简称","地域","行业编码","年薪(元)","职位","姓名")
 data.table = xtable(data,digits=0)
-caption(data.table)= paste(this.year," 年\\textbf{最高}年薪排行前 20 位 (有效样本",data.salary$最高年薪[3],"家)")
+caption(data.table)= paste(this.year," 年国资委央企\\textbf{最高}年薪排行前 20 位 (有效样本",data.salary$最高年薪[3],"家)")
 print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
 @
 
 <<results='asis'>>=
-sql = "select substr(股票代码,1,6),股票简称,地域,行业编码,年薪,职位,高管姓名 from RZ_Rank_Top limit 20,10"
+sql = "select substr(股票代码,1,6),股票简称,地域,行业编码,年薪,职位,高管姓名 from RZ_Rank_Top limit 20,20"
+dt = fetch(dbSendQuery(connect,sql))
+data = data.frame(attr(dt,'row.names'),dt)
+names(data) = c("排名","股票代码","股票简称","地域","行业编码","年薪(元)","职位","姓名")
+data.table = xtable(data,digits=0)
+caption(data.table)= paste(this.year," 年非国资委央企\\textbf{最高}年薪排行前 20 位 (有效样本",data.salary$最高年薪[3],"家)")
+print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+@
+
+<<results='asis'>>=
+sql = "select substr(股票代码,1,6),股票简称,地域,行业编码,年薪,职位,高管姓名 from RZ_Rank_Top limit 40,10"
 dt = fetch(dbSendQuery(connect,sql))
 data = data.frame(attr(dt,'row.names'),dt)
 names(data) = c("排名","股票代码","股票简称","地域","行业编码","年薪(元)","职位","姓名")

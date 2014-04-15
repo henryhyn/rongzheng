@@ -10,10 +10,10 @@ library('RSQLite')
 library('RSQLite.extfuns')
 library('sqldf')
 options(sqldf.driver="SQLite")
-num.company=2452
-num.rate=2437
-this.year=2012
-last.year=2011
+num.company=2464
+num.rate=1483
+this.year=2013
+last.year=2012
 sql = "select 职位内容,职位秩序 from RZ_Job where 职位秩序<=32"
 iterator = fetch(dbSendQuery(connect,sql))
 sql = "select 行业名称,行业编码 from RZ_HangYe"
@@ -33,7 +33,7 @@ hangye = fetch(dbSendQuery(connect,sql))
 %本文的统计是基于公司的, 样本数是公司的\textbf{家数}, 按以下规则提取用于分析的记录.
 %\begin{itemize}
 %\item 董事长兼总经理的, 总经理的排名不包括兼董事长的, 即总经理的排名只排单独为总经理的;
-%\item 副总经理兼财务总监兼董秘, 副总经理兼财务总监, 副总经理兼董秘, 董秘兼财务总监的, 
+%\item 副总经理兼财务总监兼董秘, 副总经理兼财务总监, 副总经理兼董秘, 董秘兼财务总监的,
 %上述这 4 种情况, 都要既进入副总经理又进入董秘或进入财务总监的表;
 %\item 排名时单独董秘排名包括同时兼任财务总监的, 但单独财务总监排名剔除同时兼任董秘的.
 %\item 每家公司, 每个职位, 取最高年薪, 或最高持股市值.

@@ -70,13 +70,12 @@ cd -
 
 #### data analysis ####
 # mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e "call sp_MergeData($year)"
-# mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e "call sp_SplitData($year)"
-# mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e 'source sp_main.sql'
+mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e "call sp_SplitData($year)"
+mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e 'source sp_main.sql'
 
 #### generate report ####
 cd $dir_rnw
-# ./make
-./clean
+./make
 mv main.pdf  $dir_out
 mv main.docx $dir_out
 cd -

@@ -11,5 +11,5 @@ cat chap01.Rnw \
 xelatex main.tex
 xelatex main.tex
 pandoc -f latex -t docx -o main.docx chap99.tex
-#rm -fr figure cache
-#./clean
+rm -fr figure cache
+./clean

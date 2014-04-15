@@ -117,6 +117,8 @@ ORDER BY 股票代码,职位内容,年薪 DESC;
 ALTER TABLE RZ_Database_2012 ADD INDEX (`股票代码`,`高管姓名`);
 UPDATE RZ_Database_2012 a, RZ_Stock_1 b SET a.持股数量=b.持股数量 WHERE a.股票代码=b.股票代码 AND a.高管姓名=b.高管姓名;
 
+delete a from RZ_Salary_1 a left join RZ_Company_All b on a.股票代码=b.股票代码 where a.股票代码 is not null and b.股票代码 is null;
+delete a from RZ_Stock_1 a left join RZ_Company_All b on a.股票代码=b.股票代码 where a.股票代码 is not null and b.股票代码 is null;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;

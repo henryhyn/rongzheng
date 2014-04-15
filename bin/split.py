@@ -17,7 +17,7 @@ def split(read, write):
     fread  = open(read,'r')
     for line in fread:
         lst = line.strip('\n').split('|')
-        i_split = lst[3].replace('兼',',').replace('及',',').replace('/',',').replace('、',',').replace('\\',',')
+        i_split = lst[3].replace('兼',',').replace('及',',').replace('/',',').replace('、',',').replace('﹑',',').replace(';',',').replace('，',',').replace('\\',',')
         for i in i_split.split(','):
             lst[3] = i
             fwrite.write('|'.join(lst) + '\n')

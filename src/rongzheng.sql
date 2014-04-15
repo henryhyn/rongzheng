@@ -62,28 +62,6 @@ CREATE TABLE `RZ_Company_Salary_0000` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `RZ_Company_Size_0000`
---
-
-DROP TABLE IF EXISTS `RZ_Company_Size_0000`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `RZ_Company_Size_0000` (
-  `股票代码` char(9) NOT NULL,
-  `股票简称` varchar(16) DEFAULT NULL,
-  `上市日期` varchar(255) DEFAULT NULL,
-  `总股本` varchar(255) DEFAULT NULL,
-  `年末收盘价` varchar(255) DEFAULT NULL,
-  `基本每股收益` varchar(255) DEFAULT NULL,
-  `每股收益` varchar(255) DEFAULT NULL,
-  `净资产收益率` varchar(255) DEFAULT NULL,
-  `摊薄净资产收益率` varchar(255) DEFAULT NULL,
-  `加权净资产收益率` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`股票代码`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `RZ_Company_Stock_0000`
 --
 
@@ -116,6 +94,28 @@ CREATE TABLE `RZ_Company_Stock_0000` (
   `行业分类` enum('交通运输、仓储业','传播与文化产业','信息技术业','农、林、牧、渔业','制造业','建筑业','房地产业','批发和零售贸易','电力、煤气及水的生产和供应业','社会服务业','综合类','采掘业','金融、保险业') DEFAULT NULL,
   `企业属性` enum('国资委央企','地方国企','外资','民企','非国资委央企') DEFAULT NULL,
   `地域全称` enum('上海','云南省','内蒙古自治区','北京','吉林省','四川省','天津','宁夏回族自治区','安徽省','山东省','山西省','广东省','广西壮族自治区','新疆维吾尔自治区','江苏省','江西省','河北省','河南省','浙江省','海南省','湖北省','湖南省','甘肃省','福建省','西藏自治区','贵州省','辽宁省','重庆','陕西省','青海省','黑龙江省') DEFAULT NULL,
+  PRIMARY KEY (`股票代码`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Company_Size_0000`
+--
+
+DROP TABLE IF EXISTS `RZ_Company_Size_0000`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Company_Size_0000` (
+  `股票代码` char(9) NOT NULL,
+  `股票简称` varchar(16) DEFAULT NULL,
+  `上市日期` varchar(255) DEFAULT NULL,
+  `总股本` varchar(255) DEFAULT NULL,
+  `年末收盘价` varchar(255) DEFAULT NULL,
+  `基本每股收益` varchar(255) DEFAULT NULL,
+  `每股收益` varchar(255) DEFAULT NULL,
+  `净资产收益率` varchar(255) DEFAULT NULL,
+  `摊薄净资产收益率` varchar(255) DEFAULT NULL,
+  `加权净资产收益率` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`股票代码`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -168,4 +168,4 @@ CREATE TABLE `RZ_Stock_0000` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-04-13 22:07:42
+-- Dump completed on 2014-04-15 16:10:13

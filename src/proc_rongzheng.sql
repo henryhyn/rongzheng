@@ -118,6 +118,22 @@ CREATE TABLE `RZ_Stock` (
   PRIMARY KEY (`股票代码`,`高管姓名`,`职位秩序`,`年份`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Job_All`
+--
+
+DROP TABLE IF EXISTS `RZ_Job_All`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Job_All` (
+  `职位` varchar(64) NOT NULL DEFAULT '',
+  `出现次数` bigint(21) NOT NULL DEFAULT '0',
+  `职位秩序` int(4) NOT NULL DEFAULT '0',
+  `职位内容` varchar(4) NOT NULL DEFAULT '',
+  PRIMARY KEY (`职位`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -128,4 +144,4 @@ CREATE TABLE `RZ_Stock` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-04-15  0:56:47
+-- Dump completed on 2014-04-15 16:10:13

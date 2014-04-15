@@ -67,6 +67,62 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_SplitData` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_SplitData`(IN `year` integer)
+BEGIN
+
+/* 提取分析数据 */
+
+-- 高管的全部薪酬信息
+DROP TABLE IF EXISTS `RZ_Salary_1`;
+CREATE TABLE RZ_Salary_1
+SELECT * FROM RZ_Salary WHERE 年份=year;
+ALTER TABLE RZ_Salary_1 ADD INDEX (`股票代码`,`高管姓名`,`职位秩序`);
+
+DROP TABLE IF EXISTS `RZ_Salary_11`;
+CREATE TABLE RZ_Salary_11
+SELECT * FROM RZ_Salary WHERE 年份=year-1;
+ALTER TABLE RZ_Salary_11 ADD INDEX (`股票代码`,`高管姓名`,`职位秩序`);
+
+-- 高管的全部持股信息
+DROP TABLE IF EXISTS `RZ_Stock_1`;
+CREATE TABLE RZ_Stock_1
+SELECT * FROM RZ_Stock WHERE 年份=year;
+ALTER TABLE RZ_Stock_1 ADD INDEX (`股票代码`,`高管姓名`,`职位秩序`);
+
+DROP TABLE IF EXISTS `RZ_Stock_11`;
+CREATE TABLE RZ_Stock_11
+SELECT * FROM RZ_Stock WHERE 年份=year-1;
+ALTER TABLE RZ_Stock_11 ADD INDEX (`股票代码`,`高管姓名`,`职位秩序`);
+
+-- 派生平均值分析表
+DROP TABLE IF EXISTS `RZ_Company_All`;
+CREATE TABLE RZ_Company_All
+SELECT * FROM RZ_Company WHERE 年份=year;
+ALTER TABLE RZ_Company_All ADD INDEX (`股票代码`);
+
+DROP TABLE IF EXISTS `RZ_Database_2012`;
+CREATE TABLE RZ_Database_2012
+SELECT 股票代码,高管姓名,职位内容,年薪,年薪 AS 持股数量 FROM RZ_Salary_1
+ORDER BY 股票代码,职位内容,年薪 DESC;
+ALTER TABLE RZ_Database_2012 ADD INDEX (`股票代码`,`高管姓名`);
+UPDATE RZ_Database_2012 a, RZ_Stock_1 b SET a.持股数量=b.持股数量 WHERE a.股票代码=b.股票代码 AND a.高管姓名=b.高管姓名;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -77,4 +133,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-04-15  0:56:32
+-- Dump completed on 2014-04-15 16:10:12

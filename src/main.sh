@@ -21,14 +21,14 @@ export PATH=$dir_bin:$PATH
 # mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e 'source init_db.sql'
 
 cd $dir_data
-#### xlsx2csv ####
+# #### xlsx2csv ####
 # files="总表*.xlsx"
 # for file in $files; do
 #     name=${file%.*}
 #     echo "Convert $file to $name.csv"
-#     # xlsx2csv -d'|' -s1 $file | perl -pe 's/_x000D_\r?\n//g' | sed 'N;$d;P;D' > $name.csv
+#     xlsx2csv -d'|' -s1 $file | perl -pe 's/_x000D_\r?\n//g' | sed 'N;$d;P;D' > $name.csv
 # done
-#### split ####
+# #### split ####
 # split.py "总表2-薪酬明细.csv" "RZ_Salary.csv"
 # split.py "总表3-持股明细.csv" "RZ_Stock.csv"
 # rm -fr 总表2-薪酬明细.csv
@@ -36,7 +36,7 @@ cd $dir_data
 # mv 总表1-基本信息-薪酬.csv RZ_Company_Salary.csv
 # mv 总表1-基本信息-持股.csv RZ_Company_Stock.csv
 # mv 总表1-基本信息-规模.csv RZ_Company_Size.csv
-#### load data ####
+# #### load data ####
 # > temp.sql
 # files="RZ_[CS]*.csv"
 # for file in $files; do
@@ -55,12 +55,12 @@ cd $dir_data
 # mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e 'source temp.sql'
 # rm -fr rongzheng.sql
 # rm -fr temp.sql
-#### export job all ####
+# #### export job all ####
 # cp -fa $dir_src/export_joball.sql .
 # mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e 'source export_joball.sql'
 # mv /tmp/RZ_Job_All_0000.csv RZ_Job_All_$year.csv
 # rm -fr export_joball.sql
-#### import job all ####
+# #### import job all ####
 # xlsx2csv -d'|' -s1 RZ_Job_All_$year.xlsx > RZ_Job_All_0000.csv
 # cp -fa $dir_src/import_joball.sql .
 # mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e 'source import_joball.sql'
@@ -69,12 +69,9 @@ cd $dir_data
 cd -
 
 #### data analysis ####
-# mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e 'source proc_rongzheng.sql'
 # mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e "call sp_MergeData($year)"
-# mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e 'source sp_select.sql'
-# mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e 'source sp_valid.sql'
-# mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e 'source sp_rank.sql'
-# mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e 'source sp_average.sql'
+# mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e "call sp_SplitData($year)"
+# mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e 'source sp_main.sql'
 
 #### generate report ####
 cd $dir_rnw
@@ -85,7 +82,12 @@ mv main.docx $dir_out
 cd -
 
 
-
+#### backup data ####
+# mysqldump -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 -tdR rongzheng > routines.sql
+# mysqldump -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng RZ_HangYe RZ_Area RZ_Job > data.sql
+# mysqldump -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 -d rongzheng RZ_Company RZ_Salary RZ_Stock RZ_Job_All > proc_rongzheng.sql
+# mysqldump -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng RZ_Company RZ_Salary RZ_Stock RZ_Job_All > data_$year.sql
+# mysqldump -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 -d rongzheng RZ_Company_Salary_0000 RZ_Company_Stock_0000 RZ_Company_Size_0000 RZ_Salary_0000 RZ_Stock_0000 > rongzheng.sql
 
 
 

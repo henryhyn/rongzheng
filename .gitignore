@@ -3,5 +3,7 @@ doc
 out
 rnw/chap99.Rnw
 rnw/chap99.tex
+rnw/chap98.tex
 .DS_Store
 .idea
+src/data_2*.sql

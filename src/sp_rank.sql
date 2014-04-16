@@ -1,16 +1,16 @@
 DROP TABLE IF EXISTS `RZ_Rank_Top`;
 create table RZ_Rank_Top
 select 股票代码,股票简称,地域,行业编码,年薪,职位,高管姓名
-	from RZ_Salary_Top where 股票代码 in (select 股票代码 from RZ_Company_All where 企业属性="国资委央企") order by 年薪 desc limit 20;
+	from RZ_Salary_Top where 股票代码 in (select 股票代码 from RZ_Company_All where 企业属性="国资委央企") order by 年薪 desc limit 30;
 
 insert into RZ_Rank_Top
 select 股票代码,股票简称,地域,行业编码,年薪,职位,高管姓名
-    from RZ_Salary_Top where 股票代码 in (select 股票代码 from RZ_Company_All where 企业属性!="国资委央企") order by 年薪 desc limit 20;
+    from RZ_Salary_Top order by 年薪 desc limit 20;
 
 insert into RZ_Rank_Top
 select * from (
     select 股票代码,股票简称,地域,行业编码,年薪,职位,高管姓名
-    from RZ_Salary_Top where 股票代码 in (select 股票代码 from RZ_Company_All where 企业属性!="国资委央企") order by 年薪 limit 10) a
+    from RZ_Salary_Top order by 年薪 limit 10) a
 order by 年薪 desc;
 
 

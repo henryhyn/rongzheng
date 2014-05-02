@@ -10,8 +10,8 @@ library('RSQLite')
 library('RSQLite.extfuns')
 library('sqldf')
 options(sqldf.driver="SQLite")
-num.company=2464
-num.rate=1483
+num.company=2465
+num.rate=2353
 this.year=2013
 last.year=2012
 sql = "select 职位内容,职位秩序 from RZ_Job where 职位秩序<=32"

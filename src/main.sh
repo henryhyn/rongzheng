@@ -26,7 +26,7 @@ cd $dir_data
 # for file in $files; do
 #     name=${file%.*}
 #     echo "Convert $file to $name.csv"
-#     xlsx2csv -d'|' -s1 $file | perl -pe 's/_x000D_\r?\n//g' | sed 'N;$d;P;D' > $name.csv
+#     xlsx2csv -d'|' -s1 $file | perl -pe 's/_x000D_\r?\n//g' | sed '$d' > $name.csv
 # done
 # #### split ####
 # split.py "总表2-薪酬明细.csv" "RZ_Salary.csv"

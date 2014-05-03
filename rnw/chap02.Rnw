@@ -102,12 +102,15 @@ for (i in c(1, 2, 4)) {
   职位内容 = iterator$职位内容[i]
   职位秩序 = iterator$职位秩序[i]
   sql = paste("select substr(股票代码,1,6) as 股票代码,股票简称,地域,行业编码,今年年薪,去年年薪,升幅,高管姓名
-    from RZ_Salary_Increase where 职位秩序=", 职位秩序, " order by 升幅 desc limit 0,35")
+    from RZ_Salary_Increase where 职位秩序=", 职位秩序, " order by 升幅 desc limit 0,70")
   dt = fetch(dbSendQuery(connect,sql))
   data = data.frame(attr(dt,'row.names'),dt)
   names(data) = c("排名","股票代码","股票简称","地域","行业编码","今年年薪(元)","去年年薪(元)","升幅(%)",职位内容)
-  data.table = xtable(data,digits=0)
-  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪\\textbf{最大升幅}排行前 20 位",sep="")
+  data.table = xtable(data[1:35,],digits=0)
+  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪\\textbf{最大升幅}排行前 20 位 (第一部分)",sep="")
+  print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+  data.table = xtable(data[35:70,],digits=0)
+  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪\\textbf{最大升幅}排行前 20 位 (第二部分)",sep="")
   print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
 }
 @
@@ -119,12 +122,15 @@ for (i in c(1, 2, 4)) {
   职位内容 = iterator$职位内容[i]
   职位秩序 = iterator$职位秩序[i]
   sql = paste("select substr(股票代码,1,6) as 股票代码,股票简称,地域,行业编码,今年年薪,去年年薪,升值,高管姓名
-    from RZ_Salary_Increase where 职位秩序=", 职位秩序, " order by 升值 desc limit 0,35")
+    from RZ_Salary_Increase where 职位秩序=", 职位秩序, " order by 升值 desc limit 0,70")
   dt = fetch(dbSendQuery(connect,sql))
   data = data.frame(attr(dt,'row.names'),dt)
   names(data) = c("排名","股票代码","股票简称","地域","行业编码","今年年薪(元)","去年年薪(元)","升值(元)",职位内容)
-  data.table = xtable(data,digits=0)
-  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪\\textbf{最大升值}排行前 20 位",sep="")
+  data.table = xtable(data[1:35,],digits=0)
+  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪\\textbf{最大升值}排行前 20 位 (第一部分)",sep="")
+  print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+  data.table = xtable(data[35:70,],digits=0)
+  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪\\textbf{最大升值}排行前 20 位 (第二部分)",sep="")
   print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
 }
 @
@@ -136,12 +142,15 @@ for (i in c(1, 2, 4)) {
   职位内容 = iterator$职位内容[i]
   职位秩序 = iterator$职位秩序[i]
   sql = paste("select substr(股票代码,1,6) as 股票代码,股票简称,地域,行业编码,今年年薪,去年年薪,升幅,高管姓名
-    from RZ_Salary_Increase where 职位秩序=", 职位秩序, " order by 升幅 limit 0,35")
+    from RZ_Salary_Increase where 职位秩序=", 职位秩序, " order by 升幅 limit 0,70")
   dt = fetch(dbSendQuery(connect,sql))
   data = data.frame(attr(dt,'row.names'),dt)
   names(data) = c("排名","股票代码","股票简称","地域","行业编码","今年年薪(元)","去年年薪(元)","降幅(%)",职位内容)
-  data.table = xtable(data,digits=0)
-  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪\\textbf{最大降幅}排行前 20 位",sep="")
+  data.table = xtable(data[1:35,],digits=0)
+  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪\\textbf{最大降幅}排行前 20 位 (第一部分)",sep="")
+  print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+  data.table = xtable(data[35:70,],digits=0)
+  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪\\textbf{最大降幅}排行前 20 位 (第二部分)",sep="")
   print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
 }
 @
@@ -153,12 +162,15 @@ for (i in c(1, 2, 4)) {
   职位内容 = iterator$职位内容[i]
   职位秩序 = iterator$职位秩序[i]
   sql = paste("select substr(股票代码,1,6) as 股票代码,股票简称,地域,行业编码,今年年薪,去年年薪,升值,高管姓名
-    from RZ_Salary_Increase where 职位秩序=", 职位秩序, " order by 升值 limit 0,35")
+    from RZ_Salary_Increase where 职位秩序=", 职位秩序, " order by 升值 limit 0,70")
   dt = fetch(dbSendQuery(connect,sql))
   data = data.frame(attr(dt,'row.names'),dt)
   names(data) = c("排名","股票代码","股票简称","地域","行业编码","今年年薪(元)","去年年薪(元)","降值(元)",职位内容)
-  data.table = xtable(data,digits=0)
-  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪\\textbf{最大降值}排行前 20 位",sep="")
+  data.table = xtable(data[1:35,],digits=0)
+  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪\\textbf{最大降值}排行前 20 位 (第一部分)",sep="")
+  print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
+  data.table = xtable(data[35:70,],digits=0)
+  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪\\textbf{最大降值}排行前 20 位 (第二部分)",sep="")
   print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
 }
 @

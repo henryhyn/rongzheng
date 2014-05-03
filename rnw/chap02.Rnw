@@ -43,7 +43,7 @@ print(data.table,table.placement="!htbp",caption.placement="top",include.rowname
 for (i in 1:6) {
   职位内容 = iterator$职位内容[i]
   职位秩序 = iterator$职位秩序[i]
-  sql = paste("select substr(股票代码,1,6),股票简称,地域,行业编码,高管姓名,年薪 from RZ_Rank_Salary limit ",20*(i-1),",20")
+  sql = paste("select substr(股票代码,1,6),股票简称,地域,行业编码,高管姓名,年薪 from RZ_Rank_Salary where 职位秩序=",职位秩序)
   dt = fetch(dbSendQuery(connect,sql))
   data = data.frame(attr(dt,'row.names'),dt)
   names(data) = c("排名","股票代码","股票简称","地域","行业编码",职位内容,"年薪(元)")
@@ -59,7 +59,7 @@ for (i in 1:6) {
 for (i in 1:5) {
   职位内容 = iterator$职位内容[i]
   职位秩序 = iterator$职位秩序[i]
-  sql = paste("select substr(股票代码,1,6),股票简称,地域,行业编码,高管姓名,持股数量,持股市值 from RZ_Rank_Stock limit ",20*(i-1),",20")
+  sql = paste("select substr(股票代码,1,6),股票简称,地域,行业编码,高管姓名,持股数量,持股市值 from RZ_Rank_Stock where 职位秩序=",职位秩序)
   dt = fetch(dbSendQuery(connect,sql))
   data = data.frame(attr(dt,'row.names'),dt)
   names(data) = c("排名","股票代码","股票简称","地域","行业编码",职位内容,"年末持股数量(股)","年末持股市值(元)")

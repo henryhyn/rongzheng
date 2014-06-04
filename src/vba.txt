@@ -1,20 +1,20 @@
 Sub Split()
-' ½«Ò»¸ö±íÖĞµÄÃ¿Ìõ¼ÇÂ¼, °´Ä³¸öÊôĞÔÖµ²ğ·Ö³É¶àÌõ¼ÇÂ¼
-' ÉèÖÃÊı¾İÔ´, Ä¬ÈÏµÚÒ»ĞĞÎª±êÌâĞĞ
+' å°†ä¸€ä¸ªè¡¨ä¸­çš„æ¯æ¡è®°å½•, æŒ‰æŸä¸ªå±æ€§å€¼æ‹†åˆ†æˆå¤šæ¡è®°å½•
+' è®¾ç½®æ•°æ®æº, é»˜è®¤ç¬¬ä¸€è¡Œä¸ºæ ‡é¢˜è¡Œ
   Set R = Worksheets("Sheet1").Range("A2:G36732")
-' ÉèÖÃÊä³öµÄ¹¤×÷±í
+' è®¾ç½®è¾“å‡ºçš„å·¥ä½œè¡¨
   Set T = Worksheets("Sheet2")
-' °´ col µÄÊôĞÔÖµ²ğ·Ö, ·Ö¸ô·ûÎª dmt
+' æŒ‰ col çš„å±æ€§å€¼æ‹†åˆ†, åˆ†éš”ç¬¦ä¸º dmt
   col = 5
   dmt = ","
-' ÉèÖÃÍê³É, ÏÂÃæÊÇ¾ßÌå²Ù×÷, ½¨Òé²»ÒªËæ±ãĞŞ¸Ä
+' è®¾ç½®å®Œæˆ, ä¸‹é¢æ˜¯å…·ä½“æ“ä½œ, å»ºè®®ä¸è¦éšä¾¿ä¿®æ”¹
   nr = R.Rows.Count
   nc = R.Columns.Count
-' ÉèÖÃ±êÌâĞĞ
+' è®¾ç½®æ ‡é¢˜è¡Œ
   For j = 1 To nc
     T.Cells(1, j).Value = R.Cells(1, j)
   Next
-' ²ğ·ÖÃ¿Ìõ¼ÇÂ¼
+' æ‹†åˆ†æ¯æ¡è®°å½•
   p = 1
   For i = 2 To nr
     Rng = R.Cells(i, col)
@@ -60,19 +60,19 @@ Sub Missing()
   Next
 End Sub
 
-Sub ÉèÖÃ¸ñÊ½()
+Sub è®¾ç½®æ ¼å¼()
 '
-' ÉèÖÃ¸ñÊ½ Macro
-' ºêÓÉ USER Â¼ÖÆ£¬Ê±¼ä: 2011-4-21
+' è®¾ç½®æ ¼å¼ Macro
+' å®ç”± USER å½•åˆ¶ï¼Œæ—¶é—´: 2011-4-21
 '
-' ¿ì½İ¼ü: Ctrl+t
+' å¿«æ·é”®: Ctrl+t
 '
 
     nr = Selection.Rows.Count
     nc = Selection.Columns.Count
     p = 1
     q = 2
-    
+
     With Selection
         .Font.ColorIndex = 3
         .Font.Italic = False
@@ -81,7 +81,7 @@ Sub ÉèÖÃ¸ñÊ½()
         .NumberFormatLocal = "0.00_ "
         .HorizontalAlignment = xlCenter
     End With
-    
+
     For i = 1 To nr Step p
         For j = 1 To nc Step q
             Set rng = Selection.Range(Cells(i, j), Cells(i + p - 1, j + q - 1))
@@ -97,25 +97,25 @@ Sub Transpose()
   nc = R.Columns.Count
   ID = "123456789"
   p = 1
-  
+
   Dim jobMaxNum As Integer
   jobMaxNum = 8
-  
+
   Dim jobName(126) As String
   Dim jobId(126) As Integer
   Dim jobNameNum As Integer
   Dim jobIdNum As Integer
   Dim jobNameFlag As Boolean
   Dim job(126) As String
-  
-  jobName(1) = "¶­ÊÂ³¤"
-  jobName(2) = "×Ü¾­Àí"
-  jobName(3) = "¸±×Ü¾­Àí"
-  jobName(4) = "¶­ÃØ"
-  jobName(5) = "²ÆÎñ×Ü¼à"
-  jobName(6) = "¶ÀÁ¢¶­ÊÂ"
-  jobName(7) = "¶­ÊÂ"
-  jobName(8) = "¼àÊÂ"
+
+  jobName(1) = "è‘£äº‹é•¿"
+  jobName(2) = "æ€»ç»ç†"
+  jobName(3) = "å‰¯æ€»ç»ç†"
+  jobName(4) = "è‘£ç§˜"
+  jobName(5) = "è´¢åŠ¡æ€»ç›‘"
+  jobName(6) = "ç‹¬ç«‹è‘£äº‹"
+  jobName(7) = "è‘£äº‹"
+  jobName(8) = "ç›‘äº‹"
   jobId(1) = 1
   jobId(2) = 2
   jobId(3) = 3
@@ -124,24 +124,24 @@ Sub Transpose()
   jobId(6) = 6
   jobId(7) = 7
   jobId(8) = 8
-  
-  job(1) = "¶­ÊÂ³¤"
-  job(2) = "×Ü¾­Àí"
-  job(3) = "¸±×Ü¾­Àí"
-  job(4) = "¶­ÃØ"
-  job(5) = "²ÆÎñ×Ü¼à"
-  job(6) = "¶ÀÁ¢¶­ÊÂ"
-  job(7) = "¶­ÊÂ"
-  job(8) = "¼àÊÂ"
-  
+
+  job(1) = "è‘£äº‹é•¿"
+  job(2) = "æ€»ç»ç†"
+  job(3) = "å‰¯æ€»ç»ç†"
+  job(4) = "è‘£ç§˜"
+  job(5) = "è´¢åŠ¡æ€»ç›‘"
+  job(6) = "ç‹¬ç«‹è‘£äº‹"
+  job(7) = "è‘£äº‹"
+  job(8) = "ç›‘äº‹"
+
   jobNameNum = 8
   jobIdNum = 8
-  
+
   Dim jobHeadId(126) As String
   Dim jobHeadFlag(126) As Integer
   Dim jobHeadIdNum As Integer
   Dim jobHeadIdFlag As Boolean
-  
+
   jobHeadId(1) = 1
   jobHeadId(2) = 2
   jobHeadId(3) = 3
@@ -196,7 +196,7 @@ Sub Transpose()
   jobHeadId(52) = 8
   jobHeadId(53) = 8
   jobHeadIdNum = 53
-    
+
   For i = 1 To nr
     If R.Cells(i, 1) <> ID Then
       p = p + 1
@@ -209,7 +209,7 @@ Sub Transpose()
         jobHeadFlag(j) = 0
       Next
     End If
-    
+
     thisJobName = R.Cells(i, 48)
     jobNameFlag = False
     For j = 1 To jobNameNum
@@ -228,7 +228,7 @@ Sub Transpose()
       thisJobId = jobIdNum
       job(jobIdNum) = thisJobName
     End If
-    
+
     jobHeadIdFlag = False
     For j = 1 To jobHeadIdNum
       If jobHeadFlag(j) = 0 And thisJobId = jobHeadId(j) Then
@@ -241,7 +241,7 @@ Sub Transpose()
       jobHeadId(jobHeadIdNum) = thisJobId
       j = jobHeadIdNum
     End If
-    
+
     If j <= jobHeadIdNum Then
       jobHeadFlag(j) = 1
       If j = 1 Then
@@ -257,19 +257,19 @@ Sub Transpose()
       End If
     End If
   Next
-  
-  T.Cells(1, 1).Value = "ĞòºÅ"
-  T.Cells(1, 2).Value = "¹ÉÆ±´úÂë"
-  T.Cells(1, 3).Value = "¹ÉÆ±¼ò³Æ"
-  
+
+  T.Cells(1, 1).Value = "åºå·"
+  T.Cells(1, 2).Value = "è‚¡ç¥¨ä»£ç "
+  T.Cells(1, 3).Value = "è‚¡ç¥¨ç®€ç§°"
+
   T.Cells(1, 49).Value = job(jobHeadId(1))
-  T.Cells(1, 50).Value = "ÄêĞ½"
-  T.Cells(1, 51).Value = "³Ö¹ÉÊıÁ¿"
-  T.Cells(1, 52).Value = "¼æ×Ü¾­Àí"
+  T.Cells(1, 50).Value = "å¹´è–ª"
+  T.Cells(1, 51).Value = "æŒè‚¡æ•°é‡"
+  T.Cells(1, 52).Value = "å…¼æ€»ç»ç†"
   For j = 2 To jobHeadIdNum
     T.Cells(1, 3 * j + 47).Value = job(jobHeadId(j))
-    T.Cells(1, 3 * j + 48).Value = "ÄêĞ½"
-    T.Cells(1, 3 * j + 49).Value = "³Ö¹ÉÊıÁ¿"
+    T.Cells(1, 3 * j + 48).Value = "å¹´è–ª"
+    T.Cells(1, 3 * j + 49).Value = "æŒè‚¡æ•°é‡"
   Next
 
 End Sub
@@ -279,7 +279,7 @@ Sub ClearMissing()
   Set R = Worksheets("Sheet2").Range("A2:AG2040")
   nr = R.Rows.Count
   nc = R.Columns.Count
-  
+
   For i = 1 To nr
     For j = 1 To nc
       If R.Cells(i, j).Value = -1 Or R.Cells(i, j).Value = -10000 Then
@@ -315,7 +315,7 @@ Sub Color()
     .Font.Bold = True
     .HorizontalAlignment = xlCenter
   End With
-  
+
   Set Rng = R.Range(Cells(1, 49), Cells(1, 52))
   With Rng
     .Interior.ColorIndex = 45
@@ -331,7 +331,7 @@ Sub Color()
       .HorizontalAlignment = xlCenter
     End With
   Next
-  
+
   For i = 2 To nr
     Set Rng = R.Range(Cells(i, 1), Cells(i, 48))
     Rng.Interior.ColorIndex = (i + 1) Mod 2 + 37
@@ -365,13 +365,23 @@ End Sub
 
 
 
+# è½¬ç½®æ•°æ®
+
+## å¯¼å‡ºæ•°æ®
+
+select a.*, èŒä½å†…å®¹, é«˜ç®¡å§“å, ROUND(å¹´è–ª), ROUND(æŒè‚¡æ•°é‡)
+into outfile '/tmp/DataBase2013.csv'
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n'
+from RZ_Company_All a, RZ_Database_2012 b
+where a.è‚¡ç¥¨ä»£ç =b.è‚¡ç¥¨ä»£ç ;
+
+## æ’åº
+
+è‚¡ç¥¨ä»£ç , èŒä½å†…å®¹, å¹´è–ª DESC;
 
 
-
-
-
-
-
+## è½¬ç½®
 
 Sub Transpose()
   Set R = Worksheets("Sheet1").Range("A2:BB42214")
@@ -380,25 +390,25 @@ Sub Transpose()
   nc = R.Columns.Count
   ID = "123456789"
   p = 1
-  
+
   Dim jobMaxNum As Integer
   jobMaxNum = 8
-  
+
   Dim jobName(126) As String
   Dim jobId(126) As Integer
   Dim jobNameNum As Integer
   Dim jobIdNum As Integer
   Dim jobNameFlag As Boolean
   Dim job(126) As String
-  
-  jobName(1) = "¶­ÊÂ³¤"
-  jobName(2) = "×Ü¾­Àí"
-  jobName(3) = "¶­ÃØ"
-  jobName(4) = "²ÆÎñ×Ü¼à"
-  jobName(5) = "¸±×Ü¾­Àí"
-  jobName(6) = "¶ÀÁ¢¶­ÊÂ"
-  jobName(7) = "¶­ÊÂ"
-  jobName(8) = "¼àÊÂ"
+
+  jobName(1) = "è‘£äº‹é•¿"
+  jobName(2) = "æ€»ç»ç†"
+  jobName(3) = "è‘£ç§˜"
+  jobName(4) = "è´¢åŠ¡æ€»ç›‘"
+  jobName(5) = "å‰¯æ€»ç»ç†"
+  jobName(6) = "ç‹¬ç«‹è‘£äº‹"
+  jobName(7) = "è‘£äº‹"
+  jobName(8) = "ç›‘äº‹"
   jobId(1) = 1
   jobId(2) = 2
   jobId(3) = 3
@@ -407,24 +417,24 @@ Sub Transpose()
   jobId(6) = 6
   jobId(7) = 7
   jobId(8) = 8
-  
-  job(1) = "¶­ÊÂ³¤"
-  job(2) = "×Ü¾­Àí"
-  job(3) = "¶­ÃØ"
-  job(4) = "²ÆÎñ×Ü¼à"
-  job(5) = "¸±×Ü¾­Àí"
-  job(6) = "¶ÀÁ¢¶­ÊÂ"
-  job(7) = "¶­ÊÂ"
-  job(8) = "¼àÊÂ"
-  
+
+  job(1) = "è‘£äº‹é•¿"
+  job(2) = "æ€»ç»ç†"
+  job(3) = "è‘£ç§˜"
+  job(4) = "è´¢åŠ¡æ€»ç›‘"
+  job(5) = "å‰¯æ€»ç»ç†"
+  job(6) = "ç‹¬ç«‹è‘£äº‹"
+  job(7) = "è‘£äº‹"
+  job(8) = "ç›‘äº‹"
+
   jobNameNum = 8
   jobIdNum = 8
-  
+
   Dim jobHeadId(126) As String
   Dim jobHeadFlag(126) As Integer
   Dim jobHeadIdNum As Integer
   Dim jobHeadIdFlag As Boolean
-  
+
   jobHeadId(1) = 1
   jobHeadId(2) = 2
   jobHeadId(3) = 3
@@ -479,7 +489,7 @@ Sub Transpose()
   jobHeadId(52) = 8
   jobHeadId(53) = 8
   jobHeadIdNum = 53
-    
+
   For i = 1 To nr
     If R.Cells(i, 1) <> ID Then
       p = p + 1
@@ -492,7 +502,7 @@ Sub Transpose()
         jobHeadFlag(j) = 0
       Next
     End If
-    
+
     thisJobName = R.Cells(i, 51)
     jobNameFlag = False
     For j = 1 To jobNameNum
@@ -510,7 +520,7 @@ Sub Transpose()
       thisJobId = jobIdNum
       job(jobIdNum) = thisJobName
     End If
-    
+
     jobHeadIdFlag = False
     For j = 1 To jobHeadIdNum
       If jobHeadFlag(j) = 0 And thisJobId = jobHeadId(j) Then
@@ -537,19 +547,19 @@ Sub Transpose()
       End If
     End If
   Next
-  
-  T.Cells(1, 1).Value = "ĞòºÅ"
+
+  T.Cells(1, 1).Value = "åºå·"
   For j = 1 To 50
     T.Cells(1, j + 1).Value = R.Cells(0, j).Value
   Next
   T.Cells(1, 52).Value = job(jobHeadId(1))
-  T.Cells(1, 53).Value = "ÄêĞ½"
-  T.Cells(1, 54).Value = "³Ö¹ÉÊıÁ¿"
-  T.Cells(1, 55).Value = "¼æ×Ü¾­Àí"
+  T.Cells(1, 53).Value = "å¹´è–ª"
+  T.Cells(1, 54).Value = "æŒè‚¡æ•°é‡"
+  T.Cells(1, 55).Value = "å…¼æ€»ç»ç†"
   For j = 2 To jobHeadIdNum
     T.Cells(1, 3 * j + 50).Value = job(jobHeadId(j))
-    T.Cells(1, 3 * j + 51).Value = "ÄêĞ½"
-    T.Cells(1, 3 * j + 52).Value = "³Ö¹ÉÊıÁ¿"
+    T.Cells(1, 3 * j + 51).Value = "å¹´è–ª"
+    T.Cells(1, 3 * j + 52).Value = "æŒè‚¡æ•°é‡"
   Next
 
 End Sub
@@ -581,7 +591,7 @@ Sub Color()
     .Font.Bold = True
     .HorizontalAlignment = xlCenter
   End With
-  
+
   Set rng = R.Range(Cells(1, 34), Cells(1, 37))
   With rng
     .Interior.ColorIndex = 45
@@ -597,7 +607,7 @@ Sub Color()
       .HorizontalAlignment = xlCenter
     End With
   Next
-  
+
   For i = 2 To nr
     Set rng = R.Range(Cells(i, 1), Cells(i, 33))
     rng.Interior.ColorIndex = i Mod 2 + 37

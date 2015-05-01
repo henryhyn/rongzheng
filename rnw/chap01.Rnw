@@ -5,9 +5,7 @@ connect = dbConnect(driver,user='root',password='mysql',host='localhost',dbname=
 dbSendQuery(connect, "set names utf8")
 library('xtable')
 library('plyr')
-library('tcltk')
 library('RSQLite')
-library('RSQLite.extfuns')
 library('sqldf')
 options(sqldf.driver="SQLite")
 num.company=2466

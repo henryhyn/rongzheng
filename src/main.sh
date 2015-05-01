@@ -36,6 +36,7 @@ cd $dir_data
 # mv 总表1-基本信息-薪酬.csv RZ_Company_Salary.csv
 # mv 总表1-基本信息-持股.csv RZ_Company_Stock.csv
 # mv 总表1-基本信息-规模.csv RZ_Company_Size.csv
+# mv 总表1-基本信息-行业.csv RZ_Company_Genre.csv
 # #### load data ####
 # > temp.sql
 # files="RZ_[CS]*.csv"
@@ -86,7 +87,7 @@ cd -
 # mysqldump -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng RZ_HangYe RZ_Area RZ_Job > data.sql
 # mysqldump -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 -d rongzheng RZ_Company RZ_Salary RZ_Stock RZ_Job_All > proc_rongzheng.sql
 # mysqldump -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng RZ_Company RZ_Salary RZ_Stock RZ_Job_All > data_$year.sql
-# mysqldump -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 -d rongzheng RZ_Company_Salary_0000 RZ_Company_Stock_0000 RZ_Company_Size_0000 RZ_Salary_0000 RZ_Stock_0000 > rongzheng.sql
+# mysqldump -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 -d rongzheng RZ_Company_Salary_0000 RZ_Company_Stock_0000 RZ_Company_Size_0000 RZ_Company_Genre_0000 RZ_Salary_0000 RZ_Stock_0000 > rongzheng.sql
 
 
 

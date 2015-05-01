@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.14, for osx10.9 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.22, for osx10.10 (x86_64)
 --
 -- Host: 127.0.0.1    Database: rongzheng
 -- ------------------------------------------------------
--- Server version	5.6.14
+-- Server version	5.6.22
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -121,6 +121,22 @@ CREATE TABLE `RZ_Company_Size_0000` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `RZ_Company_Genre_0000`
+--
+
+DROP TABLE IF EXISTS `RZ_Company_Genre_0000`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Company_Genre_0000` (
+  `股票代码` char(9) NOT NULL,
+  `股票简称` varchar(16) DEFAULT NULL,
+  `行业名称` varchar(16) DEFAULT NULL,
+  `行业编码` varchar(2) NOT NULL DEFAULT '',
+  KEY `股票代码` (`股票代码`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `RZ_Salary_0000`
 --
 
@@ -168,4 +184,4 @@ CREATE TABLE `RZ_Stock_0000` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-04-15 16:10:13
+-- Dump completed on 2015-05-01 14:15:05

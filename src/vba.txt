@@ -370,7 +370,7 @@ End Sub
 ## 导出数据
 
 select a.*, 职位内容, 高管姓名, ROUND(年薪), ROUND(持股数量)
-into outfile '/tmp/DataBase2013.csv'
+into outfile '/tmp/DataBase2014.csv'
 FIELDS TERMINATED BY ',' ENCLOSED BY '"'
 LINES TERMINATED BY '\r\n'
 from RZ_Company_All a, RZ_Database_2012 b

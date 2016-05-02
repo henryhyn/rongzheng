@@ -5,7 +5,7 @@ select 股票代码,股票简称,地域,行业编码,年薪,职位,高管姓名
 
 insert into RZ_Rank_Top
 select 股票代码,股票简称,地域,行业编码,年薪,职位,高管姓名
-    from RZ_Salary_Top order by 年薪 desc limit 20;
+    from RZ_Salary_Top order by 年薪 desc limit 30;
 
 insert into RZ_Rank_Top
 select * from (

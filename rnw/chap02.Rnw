@@ -19,7 +19,7 @@ print(data.table,table.placement="!htbp",caption.placement="top",include.rowname
 @
 
 <<results='asis'>>=
-sql = "select substr(股票代码,1,6),股票简称,地域,行业编码,年薪,职位,高管姓名 from RZ_Rank_Top limit 30,20"
+sql = "select substr(股票代码,1,6),股票简称,地域,行业编码,年薪,职位,高管姓名 from RZ_Rank_Top limit 30,30"
 dt = fetch(dbSendQuery(connect,sql))
 data = data.frame(attr(dt,'row.names'),dt)
 names(data) = c("排名","股票代码","股票简称","地域","行业编码","年薪(元)","职位","姓名")
@@ -29,7 +29,7 @@ print(data.table,table.placement="!htbp",caption.placement="top",include.rowname
 @
 
 <<results='asis'>>=
-sql = "select substr(股票代码,1,6),股票简称,地域,行业编码,年薪,职位,高管姓名 from RZ_Rank_Top limit 50,10"
+sql = "select substr(股票代码,1,6),股票简称,地域,行业编码,年薪,职位,高管姓名 from RZ_Rank_Top limit 60,10"
 dt = fetch(dbSendQuery(connect,sql))
 data = data.frame(attr(dt,'row.names'),dt)
 names(data) = c("排名","股票代码","股票简称","地域","行业编码","年薪(元)","职位","姓名")

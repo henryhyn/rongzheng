@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.14, for osx10.9 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.22, for osx10.10 (x86_64)
 --
 -- Host: 127.0.0.1    Database: rongzheng
 -- ------------------------------------------------------
--- Server version	5.6.14
+-- Server version	5.6.22
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,7 +26,7 @@
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`%` PROCEDURE `sp_MergeData`(IN `year` integer)
 BEGIN
@@ -44,10 +44,10 @@ select a.股票代码,a.股票简称,d.行业名称,d.行业编码,a.企业属�
     10000*a.净利润,  10000*a.利润总额,  10000*a.息税前利润,  10000*a.支付各项税费,  10000*a.固定资产折旧,  10000*a.固定资产累计折旧,  10000*a.应付职工薪酬,
     (1*r.每股收益) as 每股收益,(1*r.净资产收益率) as 净资产收益率,(1*r.加权净资产收益率) as 加权净资产收益率,
     (100*高管薪酬总和/员工薪酬总和) as 高管薪酬占比,year
-    from RZ_Company_Salary_0000 a, RZ_Company_Stock_0000 b, RZ_Company_Size_0000 r, RZ_Area c, RZ_HangYe d
-    where a.股票代码=b.股票代码 and b.地域全称=c.地域全称 and b.行业分类=d.行业名称 and b.股票代码=r.股票代码;
-/*是按照股票代码区分的，主板是600、000打头的，中小板是002打头的、创业板是300打头的。*/
-UPDATE RZ_Company SET 板块 = "主板"   WHERE (股票代码 LIKE '600%') OR (股票代码 LIKE '000%');
+    from RZ_Company_Salary_0000 a, RZ_Company_Stock_0000 b, RZ_Company_Size_0000 r, RZ_Company_Genre_0000 g, RZ_Area c, RZ_HangYe d
+    where a.股票代码=b.股票代码 and b.地域全称=c.地域全称 and g.行业名称=d.行业名称 and b.股票代码=r.股票代码 and b.股票代码=g.股票代码;
+
+UPDATE RZ_Company SET 板块 = "主板"   WHERE (股票代码 LIKE '60%') OR (股票代码 LIKE '000%') OR (股票代码 LIKE '001%');
 UPDATE RZ_Company SET 板块 = "中小板" WHERE (股票代码 LIKE '002%');
 UPDATE RZ_Company SET 板块 = "创业板" WHERE (股票代码 LIKE '300%');
 
@@ -80,9 +80,9 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`%` PROCEDURE `sp_SplitData`(IN `year` integer)
 BEGIN
 
-/* 提取分析数据 */
 
--- 高管的全部薪酬信息
+
+
 DROP TABLE IF EXISTS `RZ_Salary_1`;
 CREATE TABLE RZ_Salary_1
 SELECT * FROM RZ_Salary WHERE 年份=year;
@@ -93,7 +93,7 @@ CREATE TABLE RZ_Salary_11
 SELECT * FROM RZ_Salary WHERE 年份=year-1;
 ALTER TABLE RZ_Salary_11 ADD INDEX (`股票代码`,`高管姓名`,`职位秩序`);
 
--- 高管的全部持股信息
+
 DROP TABLE IF EXISTS `RZ_Stock_1`;
 CREATE TABLE RZ_Stock_1
 SELECT * FROM RZ_Stock WHERE 年份=year;
@@ -104,7 +104,7 @@ CREATE TABLE RZ_Stock_11
 SELECT * FROM RZ_Stock WHERE 年份=year-1;
 ALTER TABLE RZ_Stock_11 ADD INDEX (`股票代码`,`高管姓名`,`职位秩序`);
 
--- 派生平均值分析表
+
 DROP TABLE IF EXISTS `RZ_Company_All`;
 CREATE TABLE RZ_Company_All
 SELECT * FROM RZ_Company WHERE 年份=year;
@@ -135,4 +135,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-04-15 16:10:12
+-- Dump completed on 2016-05-02 12:12:33

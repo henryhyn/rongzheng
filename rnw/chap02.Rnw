@@ -107,10 +107,10 @@ for (i in c(1, 2, 4)) {
   data = data.frame(attr(dt,'row.names'),dt)
   names(data) = c("排名","股票代码","股票简称","地域","行业编码","今年年薪(元)","去年年薪(元)","升幅(%)",职位内容)
   data.table = xtable(data[1:40,],digits=0)
-  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪\\textbf{最大升幅}排行前 20 位 (第一部分)",sep="")
+  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪\\textbf{最大升幅}排行前 20 位 (有效样本",data.salary[3,i+2],"家, 第一部分)",sep="")
   print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
   data.table = xtable(data[41:80,],digits=0)
-  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪\\textbf{最大升幅}排行前 20 位 (第二部分)",sep="")
+  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪\\textbf{最大升幅}排行前 20 位 (有效样本",data.salary[3,i+2],"家, 第二部分)",sep="")
   print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
 }
 @
@@ -127,10 +127,10 @@ for (i in c(1, 2, 4)) {
   data = data.frame(attr(dt,'row.names'),dt)
   names(data) = c("排名","股票代码","股票简称","地域","行业编码","今年年薪(元)","去年年薪(元)","升值(元)",职位内容)
   data.table = xtable(data[1:40,],digits=0)
-  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪\\textbf{最大升值}排行前 20 位 (第一部分)",sep="")
+  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪\\textbf{最大升值}排行前 20 位 (有效样本",data.salary[3,i+2],"家, 第一部分)",sep="")
   print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
   data.table = xtable(data[41:80,],digits=0)
-  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪\\textbf{最大升值}排行前 20 位 (第二部分)",sep="")
+  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪\\textbf{最大升值}排行前 20 位 (有效样本",data.salary[3,i+2],"家, 第二部分)",sep="")
   print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
 }
 @
@@ -147,10 +147,10 @@ for (i in c(1, 2, 4)) {
   data = data.frame(attr(dt,'row.names'),dt)
   names(data) = c("排名","股票代码","股票简称","地域","行业编码","今年年薪(元)","去年年薪(元)","降幅(%)",职位内容)
   data.table = xtable(data[1:40,],digits=0)
-  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪\\textbf{最大降幅}排行前 20 位 (第一部分)",sep="")
+  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪\\textbf{最大降幅}排行前 20 位 (有效样本",data.salary[3,i+2],"家, 第一部分)",sep="")
   print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
   data.table = xtable(data[41:80,],digits=0)
-  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪\\textbf{最大降幅}排行前 20 位 (第二部分)",sep="")
+  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪\\textbf{最大降幅}排行前 20 位 (有效样本",data.salary[3,i+2],"家, 第二部分)",sep="")
   print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
 }
 @
@@ -167,10 +167,10 @@ for (i in c(1, 2, 4)) {
   data = data.frame(attr(dt,'row.names'),dt)
   names(data) = c("排名","股票代码","股票简称","地域","行业编码","今年年薪(元)","去年年薪(元)","降值(元)",职位内容)
   data.table = xtable(data[1:40,],digits=0)
-  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪\\textbf{最大降值}排行前 20 位 (第一部分)",sep="")
+  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪\\textbf{最大降值}排行前 20 位 (有效样本",data.salary[3,i+2],"家, 第一部分)",sep="")
   print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
   data.table = xtable(data[41:80,],digits=0)
-  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪\\textbf{最大降值}排行前 20 位 (第二部分)",sep="")
+  caption(data.table)= paste(this.year,"年\\textbf{",职位内容,"}年薪\\textbf{最大降值}排行前 20 位 (有效样本",data.salary[3,i+2],"家, 第二部分)",sep="")
   print(data.table,table.placement="!htbp",caption.placement="top",include.rownames=FALSE)
 }
 @

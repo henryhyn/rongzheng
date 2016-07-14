@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.22, for osx10.10 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.13, for osx10.11 (x86_64)
 --
--- Host: 127.0.0.1    Database: rongzheng
+-- Host: 127.0.0.1    Database: RongZheng
 -- ------------------------------------------------------
--- Server version	5.6.22
+-- Server version	5.7.13
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -14,6 +14,162 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `RZ_Area`
+--
+
+DROP TABLE IF EXISTS `RZ_Area`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Area` (
+  `地域全称` varchar(16) NOT NULL,
+  `地域` varchar(4) NOT NULL,
+  PRIMARY KEY (`地域全称`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Company`
+--
+
+DROP TABLE IF EXISTS `RZ_Company`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Company` (
+  `股票代码` char(9) NOT NULL,
+  `股票简称` varchar(16) DEFAULT NULL,
+  `行业名称` varchar(16) DEFAULT NULL,
+  `行业编码` varchar(2) NOT NULL DEFAULT '',
+  `企业属性` enum('国资委央企','地方国企','外资','民企','非国资委央企') DEFAULT NULL,
+  `地域` varchar(4) NOT NULL,
+  `板块` varchar(4) NOT NULL DEFAULT '暂不考虑',
+  `高管薪酬总和` double DEFAULT NULL,
+  `高管人数` double DEFAULT NULL,
+  `领薪高管人数` double DEFAULT NULL,
+  `高管人均薪酬` double DEFAULT NULL,
+  `独董薪酬总和` double DEFAULT NULL,
+  `独董人数` double DEFAULT NULL,
+  `领薪独董人数` double DEFAULT NULL,
+  `独董人均薪酬` double DEFAULT NULL,
+  `员工薪酬总和` double DEFAULT NULL,
+  `员工人数` double DEFAULT NULL,
+  `员工人均薪酬` double DEFAULT NULL,
+  `董监薪酬总和` double DEFAULT NULL,
+  `董监人数` double DEFAULT NULL,
+  `领薪董监人数` double DEFAULT NULL,
+  `董监人均薪酬` double DEFAULT NULL,
+  `高管持股总数` double DEFAULT NULL,
+  `持股高管人数` double DEFAULT NULL,
+  `高管人均持股数量` double DEFAULT NULL,
+  `高管人均持股市值` double DEFAULT NULL,
+  `高管持股总数占比` double DEFAULT NULL,
+  `董监持股总数` double DEFAULT NULL,
+  `持股董监人数` double DEFAULT NULL,
+  `董监人均持股数量` double DEFAULT NULL,
+  `董监人均持股市值` double DEFAULT NULL,
+  `董监持股总数占比` double DEFAULT NULL,
+  `总股本` double DEFAULT NULL,
+  `流通股本` double DEFAULT NULL,
+  `总资产` double DEFAULT NULL,
+  `净资产` double DEFAULT NULL,
+  `营业总收入` double DEFAULT NULL,
+  `营业收入` double DEFAULT NULL,
+  `主营业务收入` double DEFAULT NULL,
+  `净利润` double DEFAULT NULL,
+  `利润总额` double DEFAULT NULL,
+  `息税前利润` double DEFAULT NULL,
+  `支付各项税费` double DEFAULT NULL,
+  `固定资产折旧` double DEFAULT NULL,
+  `固定资产累计折旧` double DEFAULT NULL,
+  `应付职工薪酬` double DEFAULT NULL,
+  `每股收益` double DEFAULT NULL,
+  `净资产收益率` double DEFAULT NULL,
+  `加权净资产收益率` double DEFAULT NULL,
+  `高管薪酬占比` double DEFAULT NULL,
+  `年份` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`股票代码`,`年份`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Company_All`
+--
+
+DROP TABLE IF EXISTS `RZ_Company_All`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Company_All` (
+  `股票代码` char(9) NOT NULL,
+  `股票简称` varchar(16) DEFAULT NULL,
+  `行业名称` varchar(16) DEFAULT NULL,
+  `行业编码` varchar(2) NOT NULL DEFAULT '',
+  `企业属性` enum('国资委央企','地方国企','外资','民企','非国资委央企') DEFAULT NULL,
+  `地域` varchar(4) NOT NULL,
+  `板块` varchar(4) NOT NULL DEFAULT '暂不考虑',
+  `高管薪酬总和` double DEFAULT NULL,
+  `高管人数` double DEFAULT NULL,
+  `领薪高管人数` double DEFAULT NULL,
+  `高管人均薪酬` double DEFAULT NULL,
+  `独董薪酬总和` double DEFAULT NULL,
+  `独董人数` double DEFAULT NULL,
+  `领薪独董人数` double DEFAULT NULL,
+  `独董人均薪酬` double DEFAULT NULL,
+  `员工薪酬总和` double DEFAULT NULL,
+  `员工人数` double DEFAULT NULL,
+  `员工人均薪酬` double DEFAULT NULL,
+  `董监薪酬总和` double DEFAULT NULL,
+  `董监人数` double DEFAULT NULL,
+  `领薪董监人数` double DEFAULT NULL,
+  `董监人均薪酬` double DEFAULT NULL,
+  `高管持股总数` double DEFAULT NULL,
+  `持股高管人数` double DEFAULT NULL,
+  `高管人均持股数量` double DEFAULT NULL,
+  `高管人均持股市值` double DEFAULT NULL,
+  `高管持股总数占比` double DEFAULT NULL,
+  `董监持股总数` double DEFAULT NULL,
+  `持股董监人数` double DEFAULT NULL,
+  `董监人均持股数量` double DEFAULT NULL,
+  `董监人均持股市值` double DEFAULT NULL,
+  `董监持股总数占比` double DEFAULT NULL,
+  `总股本` double DEFAULT NULL,
+  `流通股本` double DEFAULT NULL,
+  `总资产` double DEFAULT NULL,
+  `净资产` double DEFAULT NULL,
+  `营业总收入` double DEFAULT NULL,
+  `营业收入` double DEFAULT NULL,
+  `主营业务收入` double DEFAULT NULL,
+  `净利润` double DEFAULT NULL,
+  `利润总额` double DEFAULT NULL,
+  `息税前利润` double DEFAULT NULL,
+  `支付各项税费` double DEFAULT NULL,
+  `固定资产折旧` double DEFAULT NULL,
+  `固定资产累计折旧` double DEFAULT NULL,
+  `应付职工薪酬` double DEFAULT NULL,
+  `每股收益` double DEFAULT NULL,
+  `净资产收益率` double DEFAULT NULL,
+  `加权净资产收益率` double DEFAULT NULL,
+  `高管薪酬占比` double DEFAULT NULL,
+  `年份` int(11) NOT NULL DEFAULT '0',
+  KEY `股票代码` (`股票代码`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Company_Genre_0000`
+--
+
+DROP TABLE IF EXISTS `RZ_Company_Genre_0000`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Company_Genre_0000` (
+  `股票代码` char(9) NOT NULL,
+  `股票简称` varchar(16) DEFAULT NULL,
+  `行业名称` varchar(16) DEFAULT NULL,
+  `行业编码` varchar(2) NOT NULL DEFAULT '',
+  KEY `股票代码` (`股票代码`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `RZ_Company_Salary_0000`
@@ -62,6 +218,28 @@ CREATE TABLE `RZ_Company_Salary_0000` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `RZ_Company_Size_0000`
+--
+
+DROP TABLE IF EXISTS `RZ_Company_Size_0000`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Company_Size_0000` (
+  `股票代码` char(9) NOT NULL,
+  `股票简称` varchar(16) DEFAULT NULL,
+  `上市日期` varchar(255) DEFAULT NULL,
+  `总股本` varchar(255) DEFAULT NULL,
+  `年末收盘价` varchar(255) DEFAULT NULL,
+  `基本每股收益` varchar(255) DEFAULT NULL,
+  `每股收益` varchar(255) DEFAULT NULL,
+  `净资产收益率` varchar(255) DEFAULT NULL,
+  `摊薄净资产收益率` varchar(255) DEFAULT NULL,
+  `加权净资产收益率` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`股票代码`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `RZ_Company_Stock_0000`
 --
 
@@ -99,40 +277,160 @@ CREATE TABLE `RZ_Company_Stock_0000` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `RZ_Company_Size_0000`
+-- Table structure for table `RZ_Database_2012`
 --
 
-DROP TABLE IF EXISTS `RZ_Company_Size_0000`;
+DROP TABLE IF EXISTS `RZ_Database_2012`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `RZ_Company_Size_0000` (
-  `股票代码` char(9) NOT NULL,
-  `股票简称` varchar(16) DEFAULT NULL,
-  `上市日期` varchar(255) DEFAULT NULL,
-  `总股本` varchar(255) DEFAULT NULL,
-  `年末收盘价` varchar(255) DEFAULT NULL,
-  `基本每股收益` varchar(255) DEFAULT NULL,
-  `每股收益` varchar(255) DEFAULT NULL,
-  `净资产收益率` varchar(255) DEFAULT NULL,
-  `摊薄净资产收益率` varchar(255) DEFAULT NULL,
-  `加权净资产收益率` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`股票代码`)
+CREATE TABLE `RZ_Database_2012` (
+  `股票代码` char(9) NOT NULL DEFAULT '',
+  `高管姓名` varchar(64) NOT NULL DEFAULT '',
+  `职位内容` varchar(4) NOT NULL DEFAULT '',
+  `年薪` double DEFAULT NULL,
+  `持股数量` double DEFAULT NULL,
+  KEY `股票代码` (`股票代码`,`高管姓名`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_HangYe`
+--
+
+DROP TABLE IF EXISTS `RZ_HangYe`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_HangYe` (
+  `行业名称` varchar(16) DEFAULT NULL,
+  `行业编码` varchar(2) NOT NULL DEFAULT '',
+  PRIMARY KEY (`行业编码`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `RZ_Company_Genre_0000`
+-- Table structure for table `RZ_Job`
 --
 
-DROP TABLE IF EXISTS `RZ_Company_Genre_0000`;
+DROP TABLE IF EXISTS `RZ_Job`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `RZ_Company_Genre_0000` (
+CREATE TABLE `RZ_Job` (
+  `职位内容` enum('董事长','总经理','副总经理','董秘','财务总监','独立董事','董事','监事','暂不考虑') DEFAULT NULL,
+  `职位秩序` int(11) NOT NULL DEFAULT '0',
+  `年薪_2011` int(11) DEFAULT NULL,
+  `年薪_2012` int(11) DEFAULT NULL,
+  `持股_2011` int(11) DEFAULT NULL,
+  `持股_2012` int(11) DEFAULT NULL,
+  PRIMARY KEY (`职位秩序`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Job_All`
+--
+
+DROP TABLE IF EXISTS `RZ_Job_All`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Job_All` (
+  `职位` varchar(64) NOT NULL DEFAULT '',
+  `出现次数` bigint(21) NOT NULL DEFAULT '0',
+  `职位秩序` int(4) NOT NULL DEFAULT '0',
+  `职位内容` varchar(4) NOT NULL DEFAULT '',
+  PRIMARY KEY (`职位`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Job_All_0000`
+--
+
+DROP TABLE IF EXISTS `RZ_Job_All_0000`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Job_All_0000` (
+  `职位` varchar(64) NOT NULL DEFAULT '',
+  `出现次数` bigint(21) NOT NULL DEFAULT '0',
+  `职位秩序` int(4) NOT NULL DEFAULT '0',
+  `职位内容` varchar(4) NOT NULL DEFAULT '',
+  PRIMARY KEY (`职位`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Rank_Salary`
+--
+
+DROP TABLE IF EXISTS `RZ_Rank_Salary`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Rank_Salary` (
   `股票代码` char(9) NOT NULL,
   `股票简称` varchar(16) DEFAULT NULL,
-  `行业名称` varchar(16) DEFAULT NULL,
+  `地域` varchar(4) NOT NULL,
   `行业编码` varchar(2) NOT NULL DEFAULT '',
-  KEY `股票代码` (`股票代码`)
+  `年薪` double DEFAULT NULL,
+  `职位` varchar(64) DEFAULT NULL,
+  `职位秩序` int(4) NOT NULL DEFAULT '0',
+  `高管姓名` varchar(64) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Rank_Stock`
+--
+
+DROP TABLE IF EXISTS `RZ_Rank_Stock`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Rank_Stock` (
+  `股票代码` char(9) NOT NULL,
+  `股票简称` varchar(16) DEFAULT NULL,
+  `地域` varchar(4) NOT NULL,
+  `行业编码` varchar(2) NOT NULL DEFAULT '',
+  `持股数量` double DEFAULT NULL,
+  `持股市值` double DEFAULT NULL,
+  `职位` varchar(64) DEFAULT NULL,
+  `职位秩序` int(4) NOT NULL DEFAULT '0',
+  `高管姓名` varchar(64) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Rank_Top`
+--
+
+DROP TABLE IF EXISTS `RZ_Rank_Top`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Rank_Top` (
+  `股票代码` char(9) NOT NULL,
+  `股票简称` varchar(16) DEFAULT NULL,
+  `地域` varchar(4) NOT NULL,
+  `行业编码` varchar(2) NOT NULL DEFAULT '',
+  `年薪` double DEFAULT NULL,
+  `职位` varchar(64) DEFAULT NULL,
+  `高管姓名` varchar(64) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Salary`
+--
+
+DROP TABLE IF EXISTS `RZ_Salary`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Salary` (
+  `股票代码` char(9) NOT NULL DEFAULT '',
+  `高管姓名` varchar(64) NOT NULL DEFAULT '',
+  `职位` varchar(64) DEFAULT NULL,
+  `职位秩序` int(4) NOT NULL DEFAULT '0',
+  `职位内容` varchar(4) NOT NULL DEFAULT '',
+  `年薪` double DEFAULT NULL,
+  `兼职` enum('True','False') DEFAULT NULL,
+  `年份` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`股票代码`,`高管姓名`,`职位秩序`,`年份`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -156,6 +454,562 @@ CREATE TABLE `RZ_Salary_0000` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `RZ_Salary_1`
+--
+
+DROP TABLE IF EXISTS `RZ_Salary_1`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Salary_1` (
+  `股票代码` char(9) NOT NULL DEFAULT '',
+  `高管姓名` varchar(64) NOT NULL DEFAULT '',
+  `职位` varchar(64) DEFAULT NULL,
+  `职位秩序` int(4) NOT NULL DEFAULT '0',
+  `职位内容` varchar(4) NOT NULL DEFAULT '',
+  `年薪` double DEFAULT NULL,
+  `兼职` enum('True','False') DEFAULT NULL,
+  `年份` int(11) NOT NULL DEFAULT '0',
+  KEY `股票代码` (`股票代码`,`高管姓名`,`职位秩序`),
+  KEY `股票代码_2` (`股票代码`,`年薪`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Salary_11`
+--
+
+DROP TABLE IF EXISTS `RZ_Salary_11`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Salary_11` (
+  `股票代码` char(9) NOT NULL DEFAULT '',
+  `高管姓名` varchar(64) NOT NULL DEFAULT '',
+  `职位` varchar(64) DEFAULT NULL,
+  `职位秩序` int(4) NOT NULL DEFAULT '0',
+  `职位内容` varchar(4) NOT NULL DEFAULT '',
+  `年薪` double DEFAULT NULL,
+  `兼职` enum('True','False') DEFAULT NULL,
+  `年份` int(11) NOT NULL DEFAULT '0',
+  KEY `股票代码` (`股票代码`,`高管姓名`,`职位秩序`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Salary_12`
+--
+
+DROP TABLE IF EXISTS `RZ_Salary_12`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Salary_12` (
+  `股票代码` char(9) NOT NULL DEFAULT '',
+  `高管姓名` varchar(64) NOT NULL DEFAULT '',
+  `职位` varchar(64) DEFAULT NULL,
+  `职位秩序` int(4) NOT NULL DEFAULT '0',
+  `今年年薪` double DEFAULT NULL,
+  `去年年薪` double DEFAULT NULL,
+  `升值` double DEFAULT NULL,
+  `升幅` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Salary_2`
+--
+
+DROP TABLE IF EXISTS `RZ_Salary_2`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Salary_2` (
+  `股票代码` char(9) NOT NULL DEFAULT '',
+  `高管姓名` varchar(64) NOT NULL DEFAULT '',
+  `职位秩序` decimal(32,0) DEFAULT NULL,
+  `年薪` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Salary_3`
+--
+
+DROP TABLE IF EXISTS `RZ_Salary_3`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Salary_3` (
+  `股票代码` char(9) NOT NULL DEFAULT '',
+  `高管姓名` varchar(64) NOT NULL DEFAULT '',
+  `职位` varchar(64) DEFAULT NULL,
+  `职位秩序` int(4) NOT NULL DEFAULT '0',
+  `职位内容` varchar(4) NOT NULL DEFAULT '',
+  `年薪` double DEFAULT NULL,
+  `兼职` enum('True','False') DEFAULT NULL,
+  `年份` int(11) NOT NULL DEFAULT '0',
+  KEY `股票代码` (`股票代码`,`高管姓名`),
+  KEY `股票代码_2` (`股票代码`,`职位秩序`,`年薪`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Salary_4`
+--
+
+DROP TABLE IF EXISTS `RZ_Salary_4`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Salary_4` (
+  `股票代码` char(9) NOT NULL DEFAULT '',
+  `职位秩序` int(4) NOT NULL DEFAULT '0',
+  `年薪` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Salary_5`
+--
+
+DROP TABLE IF EXISTS `RZ_Salary_5`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Salary_5` (
+  `股票代码` char(9) NOT NULL DEFAULT '',
+  `高管姓名` varchar(64) NOT NULL DEFAULT '',
+  `职位` varchar(64) DEFAULT NULL,
+  `职位秩序` int(4) NOT NULL DEFAULT '0',
+  `职位内容` varchar(4) NOT NULL DEFAULT '',
+  `年薪` double DEFAULT NULL,
+  `兼职` enum('True','False') DEFAULT NULL,
+  `年份` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Salary_6`
+--
+
+DROP TABLE IF EXISTS `RZ_Salary_6`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Salary_6` (
+  `股票代码` char(9) NOT NULL DEFAULT '',
+  `年薪` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Salary_7`
+--
+
+DROP TABLE IF EXISTS `RZ_Salary_7`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Salary_7` (
+  `股票代码` char(9) NOT NULL DEFAULT '',
+  `高管姓名` varchar(64) NOT NULL DEFAULT '',
+  `职位` varchar(64) DEFAULT NULL,
+  `职位秩序` int(4) NOT NULL DEFAULT '0',
+  `职位内容` varchar(4) NOT NULL DEFAULT '',
+  `年薪` double DEFAULT NULL,
+  `兼职` enum('True','False') DEFAULT NULL,
+  `年份` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Salary_8`
+--
+
+DROP TABLE IF EXISTS `RZ_Salary_8`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Salary_8` (
+  `高管姓名` varchar(64) NOT NULL DEFAULT '',
+  `职位` varchar(64) DEFAULT NULL,
+  `职位秩序` int(4) NOT NULL DEFAULT '0',
+  `职位内容` varchar(4) NOT NULL DEFAULT '',
+  `年薪` double DEFAULT NULL,
+  `兼职` enum('True','False') DEFAULT NULL,
+  `股票代码` char(9) NOT NULL,
+  `股票简称` varchar(16) DEFAULT NULL,
+  `行业名称` varchar(16) DEFAULT NULL,
+  `行业编码` varchar(2) NOT NULL DEFAULT '',
+  `企业属性` enum('国资委央企','地方国企','外资','民企','非国资委央企') DEFAULT NULL,
+  `地域` varchar(4) NOT NULL,
+  `板块` varchar(4) NOT NULL DEFAULT '暂不考虑',
+  `高管薪酬总和` double DEFAULT NULL,
+  `高管人数` double DEFAULT NULL,
+  `领薪高管人数` double DEFAULT NULL,
+  `高管人均薪酬` double DEFAULT NULL,
+  `独董薪酬总和` double DEFAULT NULL,
+  `独董人数` double DEFAULT NULL,
+  `领薪独董人数` double DEFAULT NULL,
+  `独董人均薪酬` double DEFAULT NULL,
+  `员工薪酬总和` double DEFAULT NULL,
+  `员工人数` double DEFAULT NULL,
+  `员工人均薪酬` double DEFAULT NULL,
+  `董监薪酬总和` double DEFAULT NULL,
+  `董监人数` double DEFAULT NULL,
+  `领薪董监人数` double DEFAULT NULL,
+  `董监人均薪酬` double DEFAULT NULL,
+  `高管持股总数` double DEFAULT NULL,
+  `持股高管人数` double DEFAULT NULL,
+  `高管人均持股数量` double DEFAULT NULL,
+  `高管人均持股市值` double DEFAULT NULL,
+  `高管持股总数占比` double DEFAULT NULL,
+  `董监持股总数` double DEFAULT NULL,
+  `持股董监人数` double DEFAULT NULL,
+  `董监人均持股数量` double DEFAULT NULL,
+  `董监人均持股市值` double DEFAULT NULL,
+  `董监持股总数占比` double DEFAULT NULL,
+  `总股本` double DEFAULT NULL,
+  `流通股本` double DEFAULT NULL,
+  `总资产` double DEFAULT NULL,
+  `净资产` double DEFAULT NULL,
+  `营业总收入` double DEFAULT NULL,
+  `营业收入` double DEFAULT NULL,
+  `主营业务收入` double DEFAULT NULL,
+  `净利润` double DEFAULT NULL,
+  `利润总额` double DEFAULT NULL,
+  `息税前利润` double DEFAULT NULL,
+  `支付各项税费` double DEFAULT NULL,
+  `固定资产折旧` double DEFAULT NULL,
+  `固定资产累计折旧` double DEFAULT NULL,
+  `应付职工薪酬` double DEFAULT NULL,
+  `每股收益` double DEFAULT NULL,
+  `净资产收益率` double DEFAULT NULL,
+  `加权净资产收益率` double DEFAULT NULL,
+  `高管薪酬占比` double DEFAULT NULL,
+  `年份` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Salary_9`
+--
+
+DROP TABLE IF EXISTS `RZ_Salary_9`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Salary_9` (
+  `股票代码` char(9) NOT NULL,
+  `股票简称` varchar(16) DEFAULT NULL,
+  `地域` varchar(4) NOT NULL,
+  `行业编码` varchar(2) NOT NULL DEFAULT '',
+  `年薪` double DEFAULT NULL,
+  `职位` varchar(64) DEFAULT NULL,
+  `高管姓名` varchar(64) NOT NULL DEFAULT '',
+  `合计年薪` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Salary_All`
+--
+
+DROP TABLE IF EXISTS `RZ_Salary_All`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Salary_All` (
+  `高管姓名` varchar(64) NOT NULL DEFAULT '',
+  `职位` varchar(64) DEFAULT NULL,
+  `职位秩序` int(4) NOT NULL DEFAULT '0',
+  `职位内容` varchar(4) NOT NULL DEFAULT '',
+  `年薪` double DEFAULT NULL,
+  `兼职` enum('True','False') DEFAULT NULL,
+  `股票代码` char(9) NOT NULL,
+  `股票简称` varchar(16) DEFAULT NULL,
+  `行业名称` varchar(16) DEFAULT NULL,
+  `行业编码` varchar(2) NOT NULL DEFAULT '',
+  `企业属性` enum('国资委央企','地方国企','外资','民企','非国资委央企') DEFAULT NULL,
+  `地域` varchar(4) NOT NULL,
+  `板块` varchar(4) NOT NULL DEFAULT '暂不考虑',
+  `高管薪酬总和` double DEFAULT NULL,
+  `高管人数` double DEFAULT NULL,
+  `领薪高管人数` double DEFAULT NULL,
+  `高管人均薪酬` double DEFAULT NULL,
+  `独董薪酬总和` double DEFAULT NULL,
+  `独董人数` double DEFAULT NULL,
+  `领薪独董人数` double DEFAULT NULL,
+  `独董人均薪酬` double DEFAULT NULL,
+  `员工薪酬总和` double DEFAULT NULL,
+  `员工人数` double DEFAULT NULL,
+  `员工人均薪酬` double DEFAULT NULL,
+  `董监薪酬总和` double DEFAULT NULL,
+  `董监人数` double DEFAULT NULL,
+  `领薪董监人数` double DEFAULT NULL,
+  `董监人均薪酬` double DEFAULT NULL,
+  `高管持股总数` double DEFAULT NULL,
+  `持股高管人数` double DEFAULT NULL,
+  `高管人均持股数量` double DEFAULT NULL,
+  `高管人均持股市值` double DEFAULT NULL,
+  `高管持股总数占比` double DEFAULT NULL,
+  `董监持股总数` double DEFAULT NULL,
+  `持股董监人数` double DEFAULT NULL,
+  `董监人均持股数量` double DEFAULT NULL,
+  `董监人均持股市值` double DEFAULT NULL,
+  `董监持股总数占比` double DEFAULT NULL,
+  `总股本` double DEFAULT NULL,
+  `流通股本` double DEFAULT NULL,
+  `总资产` double DEFAULT NULL,
+  `净资产` double DEFAULT NULL,
+  `营业总收入` double DEFAULT NULL,
+  `营业收入` double DEFAULT NULL,
+  `主营业务收入` double DEFAULT NULL,
+  `净利润` double DEFAULT NULL,
+  `利润总额` double DEFAULT NULL,
+  `息税前利润` double DEFAULT NULL,
+  `支付各项税费` double DEFAULT NULL,
+  `固定资产折旧` double DEFAULT NULL,
+  `固定资产累计折旧` double DEFAULT NULL,
+  `应付职工薪酬` double DEFAULT NULL,
+  `每股收益` double DEFAULT NULL,
+  `净资产收益率` double DEFAULT NULL,
+  `加权净资产收益率` double DEFAULT NULL,
+  `高管薪酬占比` double DEFAULT NULL,
+  `年份` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Salary_Increase`
+--
+
+DROP TABLE IF EXISTS `RZ_Salary_Increase`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Salary_Increase` (
+  `高管姓名` varchar(64) NOT NULL DEFAULT '',
+  `职位` varchar(64) DEFAULT NULL,
+  `职位秩序` int(4) NOT NULL DEFAULT '0',
+  `今年年薪` double DEFAULT NULL,
+  `去年年薪` double DEFAULT NULL,
+  `升值` double DEFAULT NULL,
+  `升幅` double DEFAULT NULL,
+  `股票代码` char(9) NOT NULL,
+  `股票简称` varchar(16) DEFAULT NULL,
+  `行业名称` varchar(16) DEFAULT NULL,
+  `行业编码` varchar(2) NOT NULL DEFAULT '',
+  `企业属性` enum('国资委央企','地方国企','外资','民企','非国资委央企') DEFAULT NULL,
+  `地域` varchar(4) NOT NULL,
+  `板块` varchar(4) NOT NULL DEFAULT '暂不考虑',
+  `高管薪酬总和` double DEFAULT NULL,
+  `高管人数` double DEFAULT NULL,
+  `领薪高管人数` double DEFAULT NULL,
+  `高管人均薪酬` double DEFAULT NULL,
+  `独董薪酬总和` double DEFAULT NULL,
+  `独董人数` double DEFAULT NULL,
+  `领薪独董人数` double DEFAULT NULL,
+  `独董人均薪酬` double DEFAULT NULL,
+  `员工薪酬总和` double DEFAULT NULL,
+  `员工人数` double DEFAULT NULL,
+  `员工人均薪酬` double DEFAULT NULL,
+  `董监薪酬总和` double DEFAULT NULL,
+  `董监人数` double DEFAULT NULL,
+  `领薪董监人数` double DEFAULT NULL,
+  `董监人均薪酬` double DEFAULT NULL,
+  `高管持股总数` double DEFAULT NULL,
+  `持股高管人数` double DEFAULT NULL,
+  `高管人均持股数量` double DEFAULT NULL,
+  `高管人均持股市值` double DEFAULT NULL,
+  `高管持股总数占比` double DEFAULT NULL,
+  `董监持股总数` double DEFAULT NULL,
+  `持股董监人数` double DEFAULT NULL,
+  `董监人均持股数量` double DEFAULT NULL,
+  `董监人均持股市值` double DEFAULT NULL,
+  `董监持股总数占比` double DEFAULT NULL,
+  `总股本` double DEFAULT NULL,
+  `流通股本` double DEFAULT NULL,
+  `总资产` double DEFAULT NULL,
+  `净资产` double DEFAULT NULL,
+  `营业总收入` double DEFAULT NULL,
+  `营业收入` double DEFAULT NULL,
+  `主营业务收入` double DEFAULT NULL,
+  `净利润` double DEFAULT NULL,
+  `利润总额` double DEFAULT NULL,
+  `息税前利润` double DEFAULT NULL,
+  `支付各项税费` double DEFAULT NULL,
+  `固定资产折旧` double DEFAULT NULL,
+  `固定资产累计折旧` double DEFAULT NULL,
+  `应付职工薪酬` double DEFAULT NULL,
+  `每股收益` double DEFAULT NULL,
+  `净资产收益率` double DEFAULT NULL,
+  `加权净资产收益率` double DEFAULT NULL,
+  `高管薪酬占比` double DEFAULT NULL,
+  `年份` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Salary_One`
+--
+
+DROP TABLE IF EXISTS `RZ_Salary_One`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Salary_One` (
+  `高管姓名` varchar(64) NOT NULL DEFAULT '',
+  `职位` varchar(64) DEFAULT NULL,
+  `职位秩序` int(4) NOT NULL DEFAULT '0',
+  `职位内容` varchar(4) NOT NULL DEFAULT '',
+  `年薪` double DEFAULT NULL,
+  `兼职` enum('True','False') DEFAULT NULL,
+  `股票代码` char(9) NOT NULL,
+  `股票简称` varchar(16) DEFAULT NULL,
+  `行业名称` varchar(16) DEFAULT NULL,
+  `行业编码` varchar(2) NOT NULL DEFAULT '',
+  `企业属性` enum('国资委央企','地方国企','外资','民企','非国资委央企') DEFAULT NULL,
+  `地域` varchar(4) NOT NULL,
+  `板块` varchar(4) NOT NULL DEFAULT '暂不考虑',
+  `高管薪酬总和` double DEFAULT NULL,
+  `高管人数` double DEFAULT NULL,
+  `领薪高管人数` double DEFAULT NULL,
+  `高管人均薪酬` double DEFAULT NULL,
+  `独董薪酬总和` double DEFAULT NULL,
+  `独董人数` double DEFAULT NULL,
+  `领薪独董人数` double DEFAULT NULL,
+  `独董人均薪酬` double DEFAULT NULL,
+  `员工薪酬总和` double DEFAULT NULL,
+  `员工人数` double DEFAULT NULL,
+  `员工人均薪酬` double DEFAULT NULL,
+  `董监薪酬总和` double DEFAULT NULL,
+  `董监人数` double DEFAULT NULL,
+  `领薪董监人数` double DEFAULT NULL,
+  `董监人均薪酬` double DEFAULT NULL,
+  `高管持股总数` double DEFAULT NULL,
+  `持股高管人数` double DEFAULT NULL,
+  `高管人均持股数量` double DEFAULT NULL,
+  `高管人均持股市值` double DEFAULT NULL,
+  `高管持股总数占比` double DEFAULT NULL,
+  `董监持股总数` double DEFAULT NULL,
+  `持股董监人数` double DEFAULT NULL,
+  `董监人均持股数量` double DEFAULT NULL,
+  `董监人均持股市值` double DEFAULT NULL,
+  `董监持股总数占比` double DEFAULT NULL,
+  `总股本` double DEFAULT NULL,
+  `流通股本` double DEFAULT NULL,
+  `总资产` double DEFAULT NULL,
+  `净资产` double DEFAULT NULL,
+  `营业总收入` double DEFAULT NULL,
+  `营业收入` double DEFAULT NULL,
+  `主营业务收入` double DEFAULT NULL,
+  `净利润` double DEFAULT NULL,
+  `利润总额` double DEFAULT NULL,
+  `息税前利润` double DEFAULT NULL,
+  `支付各项税费` double DEFAULT NULL,
+  `固定资产折旧` double DEFAULT NULL,
+  `固定资产累计折旧` double DEFAULT NULL,
+  `应付职工薪酬` double DEFAULT NULL,
+  `每股收益` double DEFAULT NULL,
+  `净资产收益率` double DEFAULT NULL,
+  `加权净资产收益率` double DEFAULT NULL,
+  `高管薪酬占比` double DEFAULT NULL,
+  `年份` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Salary_Stock`
+--
+
+DROP TABLE IF EXISTS `RZ_Salary_Stock`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Salary_Stock` (
+  `职位内容` varchar(32) DEFAULT NULL,
+  `本年平均值` double DEFAULT NULL,
+  `样本数` bigint(21) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Salary_Top`
+--
+
+DROP TABLE IF EXISTS `RZ_Salary_Top`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Salary_Top` (
+  `高管姓名` varchar(64) NOT NULL DEFAULT '',
+  `职位` varchar(64) DEFAULT NULL,
+  `职位秩序` int(4) NOT NULL DEFAULT '0',
+  `职位内容` varchar(4) NOT NULL DEFAULT '',
+  `年薪` double DEFAULT NULL,
+  `兼职` enum('True','False') DEFAULT NULL,
+  `股票代码` char(9) NOT NULL,
+  `股票简称` varchar(16) DEFAULT NULL,
+  `行业名称` varchar(16) DEFAULT NULL,
+  `行业编码` varchar(2) NOT NULL DEFAULT '',
+  `企业属性` enum('国资委央企','地方国企','外资','民企','非国资委央企') DEFAULT NULL,
+  `地域` varchar(4) NOT NULL,
+  `板块` varchar(4) NOT NULL DEFAULT '暂不考虑',
+  `高管薪酬总和` double DEFAULT NULL,
+  `高管人数` double DEFAULT NULL,
+  `领薪高管人数` double DEFAULT NULL,
+  `高管人均薪酬` double DEFAULT NULL,
+  `独董薪酬总和` double DEFAULT NULL,
+  `独董人数` double DEFAULT NULL,
+  `领薪独董人数` double DEFAULT NULL,
+  `独董人均薪酬` double DEFAULT NULL,
+  `员工薪酬总和` double DEFAULT NULL,
+  `员工人数` double DEFAULT NULL,
+  `员工人均薪酬` double DEFAULT NULL,
+  `董监薪酬总和` double DEFAULT NULL,
+  `董监人数` double DEFAULT NULL,
+  `领薪董监人数` double DEFAULT NULL,
+  `董监人均薪酬` double DEFAULT NULL,
+  `高管持股总数` double DEFAULT NULL,
+  `持股高管人数` double DEFAULT NULL,
+  `高管人均持股数量` double DEFAULT NULL,
+  `高管人均持股市值` double DEFAULT NULL,
+  `高管持股总数占比` double DEFAULT NULL,
+  `董监持股总数` double DEFAULT NULL,
+  `持股董监人数` double DEFAULT NULL,
+  `董监人均持股数量` double DEFAULT NULL,
+  `董监人均持股市值` double DEFAULT NULL,
+  `董监持股总数占比` double DEFAULT NULL,
+  `总股本` double DEFAULT NULL,
+  `流通股本` double DEFAULT NULL,
+  `总资产` double DEFAULT NULL,
+  `净资产` double DEFAULT NULL,
+  `营业总收入` double DEFAULT NULL,
+  `营业收入` double DEFAULT NULL,
+  `主营业务收入` double DEFAULT NULL,
+  `净利润` double DEFAULT NULL,
+  `利润总额` double DEFAULT NULL,
+  `息税前利润` double DEFAULT NULL,
+  `支付各项税费` double DEFAULT NULL,
+  `固定资产折旧` double DEFAULT NULL,
+  `固定资产累计折旧` double DEFAULT NULL,
+  `应付职工薪酬` double DEFAULT NULL,
+  `每股收益` double DEFAULT NULL,
+  `净资产收益率` double DEFAULT NULL,
+  `加权净资产收益率` double DEFAULT NULL,
+  `高管薪酬占比` double DEFAULT NULL,
+  `年份` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Stock`
+--
+
+DROP TABLE IF EXISTS `RZ_Stock`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Stock` (
+  `股票代码` char(9) NOT NULL DEFAULT '',
+  `高管姓名` varchar(64) NOT NULL DEFAULT '',
+  `职位` varchar(64) DEFAULT NULL,
+  `职位秩序` int(4) NOT NULL DEFAULT '0',
+  `职位内容` varchar(4) NOT NULL DEFAULT '',
+  `持股数量` double DEFAULT NULL,
+  `持股市值` double DEFAULT NULL,
+  `持股比例` double DEFAULT NULL,
+  `年份` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`股票代码`,`高管姓名`,`职位秩序`,`年份`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `RZ_Stock_0000`
 --
 
@@ -174,6 +1028,362 @@ CREATE TABLE `RZ_Stock_0000` (
   KEY `股票代码` (`股票代码`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Stock_1`
+--
+
+DROP TABLE IF EXISTS `RZ_Stock_1`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Stock_1` (
+  `股票代码` char(9) NOT NULL DEFAULT '',
+  `高管姓名` varchar(64) NOT NULL DEFAULT '',
+  `职位` varchar(64) DEFAULT NULL,
+  `职位秩序` int(4) NOT NULL DEFAULT '0',
+  `职位内容` varchar(4) NOT NULL DEFAULT '',
+  `持股数量` double DEFAULT NULL,
+  `持股市值` double DEFAULT NULL,
+  `持股比例` double DEFAULT NULL,
+  `年份` int(11) NOT NULL DEFAULT '0',
+  KEY `股票代码` (`股票代码`,`高管姓名`,`职位秩序`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Stock_11`
+--
+
+DROP TABLE IF EXISTS `RZ_Stock_11`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Stock_11` (
+  `股票代码` char(9) NOT NULL DEFAULT '',
+  `高管姓名` varchar(64) NOT NULL DEFAULT '',
+  `职位` varchar(64) DEFAULT NULL,
+  `职位秩序` int(4) NOT NULL DEFAULT '0',
+  `职位内容` varchar(4) NOT NULL DEFAULT '',
+  `持股数量` double DEFAULT NULL,
+  `持股市值` double DEFAULT NULL,
+  `持股比例` double DEFAULT NULL,
+  `年份` int(11) NOT NULL DEFAULT '0',
+  KEY `股票代码` (`股票代码`,`高管姓名`,`职位秩序`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Stock_3`
+--
+
+DROP TABLE IF EXISTS `RZ_Stock_3`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Stock_3` (
+  `股票代码` char(9) NOT NULL DEFAULT '',
+  `高管姓名` varchar(64) NOT NULL DEFAULT '',
+  `职位` varchar(64) DEFAULT NULL,
+  `职位秩序` int(4) NOT NULL DEFAULT '0',
+  `职位内容` varchar(4) NOT NULL DEFAULT '',
+  `持股数量` double DEFAULT NULL,
+  `持股市值` double DEFAULT NULL,
+  `持股比例` double DEFAULT NULL,
+  `年份` int(11) NOT NULL DEFAULT '0',
+  KEY `股票代码` (`股票代码`,`高管姓名`),
+  KEY `股票代码_2` (`股票代码`,`职位秩序`,`持股市值`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Stock_4`
+--
+
+DROP TABLE IF EXISTS `RZ_Stock_4`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Stock_4` (
+  `股票代码` char(9) NOT NULL DEFAULT '',
+  `职位秩序` int(4) NOT NULL DEFAULT '0',
+  `持股市值` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Stock_5`
+--
+
+DROP TABLE IF EXISTS `RZ_Stock_5`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Stock_5` (
+  `股票代码` char(9) NOT NULL DEFAULT '',
+  `高管姓名` varchar(64) NOT NULL DEFAULT '',
+  `职位` varchar(64) DEFAULT NULL,
+  `职位秩序` int(4) NOT NULL DEFAULT '0',
+  `职位内容` varchar(4) NOT NULL DEFAULT '',
+  `持股数量` double DEFAULT NULL,
+  `持股市值` double DEFAULT NULL,
+  `持股比例` double DEFAULT NULL,
+  `年份` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Stock_All`
+--
+
+DROP TABLE IF EXISTS `RZ_Stock_All`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Stock_All` (
+  `高管姓名` varchar(64) NOT NULL DEFAULT '',
+  `职位` varchar(64) DEFAULT NULL,
+  `职位秩序` int(4) NOT NULL DEFAULT '0',
+  `职位内容` varchar(4) NOT NULL DEFAULT '',
+  `持股数量` double DEFAULT NULL,
+  `持股市值` double DEFAULT NULL,
+  `持股比例` double DEFAULT NULL,
+  `股票代码` char(9) NOT NULL,
+  `股票简称` varchar(16) DEFAULT NULL,
+  `行业名称` varchar(16) DEFAULT NULL,
+  `行业编码` varchar(2) NOT NULL DEFAULT '',
+  `企业属性` enum('国资委央企','地方国企','外资','民企','非国资委央企') DEFAULT NULL,
+  `地域` varchar(4) NOT NULL,
+  `板块` varchar(4) NOT NULL DEFAULT '暂不考虑',
+  `高管薪酬总和` double DEFAULT NULL,
+  `高管人数` double DEFAULT NULL,
+  `领薪高管人数` double DEFAULT NULL,
+  `高管人均薪酬` double DEFAULT NULL,
+  `独董薪酬总和` double DEFAULT NULL,
+  `独董人数` double DEFAULT NULL,
+  `领薪独董人数` double DEFAULT NULL,
+  `独董人均薪酬` double DEFAULT NULL,
+  `员工薪酬总和` double DEFAULT NULL,
+  `员工人数` double DEFAULT NULL,
+  `员工人均薪酬` double DEFAULT NULL,
+  `董监薪酬总和` double DEFAULT NULL,
+  `董监人数` double DEFAULT NULL,
+  `领薪董监人数` double DEFAULT NULL,
+  `董监人均薪酬` double DEFAULT NULL,
+  `高管持股总数` double DEFAULT NULL,
+  `持股高管人数` double DEFAULT NULL,
+  `高管人均持股数量` double DEFAULT NULL,
+  `高管人均持股市值` double DEFAULT NULL,
+  `高管持股总数占比` double DEFAULT NULL,
+  `董监持股总数` double DEFAULT NULL,
+  `持股董监人数` double DEFAULT NULL,
+  `董监人均持股数量` double DEFAULT NULL,
+  `董监人均持股市值` double DEFAULT NULL,
+  `董监持股总数占比` double DEFAULT NULL,
+  `总股本` double DEFAULT NULL,
+  `流通股本` double DEFAULT NULL,
+  `总资产` double DEFAULT NULL,
+  `净资产` double DEFAULT NULL,
+  `营业总收入` double DEFAULT NULL,
+  `营业收入` double DEFAULT NULL,
+  `主营业务收入` double DEFAULT NULL,
+  `净利润` double DEFAULT NULL,
+  `利润总额` double DEFAULT NULL,
+  `息税前利润` double DEFAULT NULL,
+  `支付各项税费` double DEFAULT NULL,
+  `固定资产折旧` double DEFAULT NULL,
+  `固定资产累计折旧` double DEFAULT NULL,
+  `应付职工薪酬` double DEFAULT NULL,
+  `每股收益` double DEFAULT NULL,
+  `净资产收益率` double DEFAULT NULL,
+  `加权净资产收益率` double DEFAULT NULL,
+  `高管薪酬占比` double DEFAULT NULL,
+  `年份` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Stock_Group`
+--
+
+DROP TABLE IF EXISTS `RZ_Stock_Group`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Stock_Group` (
+  `高管姓名` varchar(64) NOT NULL DEFAULT '',
+  `职位` varchar(64) DEFAULT NULL,
+  `职位秩序` int(4) NOT NULL DEFAULT '0',
+  `职位内容` varchar(4) NOT NULL DEFAULT '',
+  `持股数量` double DEFAULT NULL,
+  `持股市值` double DEFAULT NULL,
+  `持股比例` double DEFAULT NULL,
+  `股票代码` char(9) NOT NULL,
+  `股票简称` varchar(16) DEFAULT NULL,
+  `行业名称` varchar(16) DEFAULT NULL,
+  `行业编码` varchar(2) NOT NULL DEFAULT '',
+  `企业属性` enum('国资委央企','地方国企','外资','民企','非国资委央企') DEFAULT NULL,
+  `地域` varchar(4) NOT NULL,
+  `板块` varchar(4) NOT NULL DEFAULT '暂不考虑',
+  `高管薪酬总和` double DEFAULT NULL,
+  `高管人数` double DEFAULT NULL,
+  `领薪高管人数` double DEFAULT NULL,
+  `高管人均薪酬` double DEFAULT NULL,
+  `独董薪酬总和` double DEFAULT NULL,
+  `独董人数` double DEFAULT NULL,
+  `领薪独董人数` double DEFAULT NULL,
+  `独董人均薪酬` double DEFAULT NULL,
+  `员工薪酬总和` double DEFAULT NULL,
+  `员工人数` double DEFAULT NULL,
+  `员工人均薪酬` double DEFAULT NULL,
+  `董监薪酬总和` double DEFAULT NULL,
+  `董监人数` double DEFAULT NULL,
+  `领薪董监人数` double DEFAULT NULL,
+  `董监人均薪酬` double DEFAULT NULL,
+  `高管持股总数` double DEFAULT NULL,
+  `持股高管人数` double DEFAULT NULL,
+  `高管人均持股数量` double DEFAULT NULL,
+  `高管人均持股市值` double DEFAULT NULL,
+  `高管持股总数占比` double DEFAULT NULL,
+  `董监持股总数` double DEFAULT NULL,
+  `持股董监人数` double DEFAULT NULL,
+  `董监人均持股数量` double DEFAULT NULL,
+  `董监人均持股市值` double DEFAULT NULL,
+  `董监持股总数占比` double DEFAULT NULL,
+  `总股本` double DEFAULT NULL,
+  `流通股本` double DEFAULT NULL,
+  `总资产` double DEFAULT NULL,
+  `净资产` double DEFAULT NULL,
+  `营业总收入` double DEFAULT NULL,
+  `营业收入` double DEFAULT NULL,
+  `主营业务收入` double DEFAULT NULL,
+  `净利润` double DEFAULT NULL,
+  `利润总额` double DEFAULT NULL,
+  `息税前利润` double DEFAULT NULL,
+  `支付各项税费` double DEFAULT NULL,
+  `固定资产折旧` double DEFAULT NULL,
+  `固定资产累计折旧` double DEFAULT NULL,
+  `应付职工薪酬` double DEFAULT NULL,
+  `每股收益` double DEFAULT NULL,
+  `净资产收益率` double DEFAULT NULL,
+  `加权净资产收益率` double DEFAULT NULL,
+  `高管薪酬占比` double DEFAULT NULL,
+  `年份` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Stock_One`
+--
+
+DROP TABLE IF EXISTS `RZ_Stock_One`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Stock_One` (
+  `高管姓名` varchar(64) NOT NULL DEFAULT '',
+  `职位` varchar(64) DEFAULT NULL,
+  `职位秩序` int(4) NOT NULL DEFAULT '0',
+  `职位内容` varchar(4) NOT NULL DEFAULT '',
+  `持股数量` double DEFAULT NULL,
+  `持股市值` double DEFAULT NULL,
+  `持股比例` double DEFAULT NULL,
+  `股票代码` char(9) NOT NULL,
+  `股票简称` varchar(16) DEFAULT NULL,
+  `行业名称` varchar(16) DEFAULT NULL,
+  `行业编码` varchar(2) NOT NULL DEFAULT '',
+  `企业属性` enum('国资委央企','地方国企','外资','民企','非国资委央企') DEFAULT NULL,
+  `地域` varchar(4) NOT NULL,
+  `板块` varchar(4) NOT NULL DEFAULT '暂不考虑',
+  `高管薪酬总和` double DEFAULT NULL,
+  `高管人数` double DEFAULT NULL,
+  `领薪高管人数` double DEFAULT NULL,
+  `高管人均薪酬` double DEFAULT NULL,
+  `独董薪酬总和` double DEFAULT NULL,
+  `独董人数` double DEFAULT NULL,
+  `领薪独董人数` double DEFAULT NULL,
+  `独董人均薪酬` double DEFAULT NULL,
+  `员工薪酬总和` double DEFAULT NULL,
+  `员工人数` double DEFAULT NULL,
+  `员工人均薪酬` double DEFAULT NULL,
+  `董监薪酬总和` double DEFAULT NULL,
+  `董监人数` double DEFAULT NULL,
+  `领薪董监人数` double DEFAULT NULL,
+  `董监人均薪酬` double DEFAULT NULL,
+  `高管持股总数` double DEFAULT NULL,
+  `持股高管人数` double DEFAULT NULL,
+  `高管人均持股数量` double DEFAULT NULL,
+  `高管人均持股市值` double DEFAULT NULL,
+  `高管持股总数占比` double DEFAULT NULL,
+  `董监持股总数` double DEFAULT NULL,
+  `持股董监人数` double DEFAULT NULL,
+  `董监人均持股数量` double DEFAULT NULL,
+  `董监人均持股市值` double DEFAULT NULL,
+  `董监持股总数占比` double DEFAULT NULL,
+  `总股本` double DEFAULT NULL,
+  `流通股本` double DEFAULT NULL,
+  `总资产` double DEFAULT NULL,
+  `净资产` double DEFAULT NULL,
+  `营业总收入` double DEFAULT NULL,
+  `营业收入` double DEFAULT NULL,
+  `主营业务收入` double DEFAULT NULL,
+  `净利润` double DEFAULT NULL,
+  `利润总额` double DEFAULT NULL,
+  `息税前利润` double DEFAULT NULL,
+  `支付各项税费` double DEFAULT NULL,
+  `固定资产折旧` double DEFAULT NULL,
+  `固定资产累计折旧` double DEFAULT NULL,
+  `应付职工薪酬` double DEFAULT NULL,
+  `每股收益` double DEFAULT NULL,
+  `净资产收益率` double DEFAULT NULL,
+  `加权净资产收益率` double DEFAULT NULL,
+  `高管薪酬占比` double DEFAULT NULL,
+  `年份` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Valid_Case`
+--
+
+DROP TABLE IF EXISTS `RZ_Valid_Case`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Valid_Case` (
+  `类型` varchar(2) NOT NULL DEFAULT '',
+  `职位内容` varchar(4) NOT NULL DEFAULT '',
+  `类别` varchar(4) DEFAULT NULL,
+  `计数` bigint(21) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Valid_Case_Salary`
+--
+
+DROP TABLE IF EXISTS `RZ_Valid_Case_Salary`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Valid_Case_Salary` (
+  `类别` varchar(4) DEFAULT NULL,
+  `最高年薪` int(11) DEFAULT '0',
+  `董事长` int(11) DEFAULT '0',
+  `总经理` int(11) DEFAULT '0',
+  `副总经理` int(11) DEFAULT '0',
+  `董秘` int(11) DEFAULT '0',
+  `财务总监` int(11) DEFAULT '0',
+  `独立董事` int(11) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RZ_Valid_Case_Stock`
+--
+
+DROP TABLE IF EXISTS `RZ_Valid_Case_Stock`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RZ_Valid_Case_Stock` (
+  `类别` varchar(4) DEFAULT NULL,
+  `董事长` int(11) DEFAULT '0',
+  `总经理` int(11) DEFAULT '0',
+  `副总经理` int(11) DEFAULT '0',
+  `董秘` int(11) DEFAULT '0',
+  `财务总监` int(11) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -184,4 +1394,4 @@ CREATE TABLE `RZ_Stock_0000` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-01 14:15:05
+-- Dump completed on 2016-07-14 14:52:19

@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.22, for osx10.10 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.13, for osx10.11 (x86_64)
 --
--- Host: 127.0.0.1    Database: rongzheng
+-- Host: 127.0.0.1    Database: RongZheng
 -- ------------------------------------------------------
--- Server version	5.6.22
+-- Server version	5.7.13
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,7 +16,7 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping routines for database 'rongzheng'
+-- Dumping routines for database 'RongZheng'
 --
 /*!50003 DROP PROCEDURE IF EXISTS `sp_MergeData` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -47,7 +47,7 @@ select a.股票代码,a.股票简称,d.行业名称,d.行业编码,a.企业属�
     from RZ_Company_Salary_0000 a, RZ_Company_Stock_0000 b, RZ_Company_Size_0000 r, RZ_Company_Genre_0000 g, RZ_Area c, RZ_HangYe d
     where a.股票代码=b.股票代码 and b.地域全称=c.地域全称 and g.行业名称=d.行业名称 and b.股票代码=r.股票代码 and b.股票代码=g.股票代码;
 
-UPDATE RZ_Company SET 板块 = "主板"   WHERE (股票代码 LIKE '60%') OR (股票代码 LIKE '000%') OR (股票代码 LIKE '001%');
+UPDATE RZ_Company SET 板块 = "主板"   WHERE (股票代码 LIKE '600%') OR (股票代码 LIKE '000%');
 UPDATE RZ_Company SET 板块 = "中小板" WHERE (股票代码 LIKE '002%');
 UPDATE RZ_Company SET 板块 = "创业板" WHERE (股票代码 LIKE '300%');
 
@@ -135,4 +135,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-02 12:12:33
+-- Dump completed on 2016-07-14 14:52:01

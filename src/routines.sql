@@ -47,7 +47,7 @@ select a.股票代码,a.股票简称,d.行业名称,d.行业编码,a.企业属�
     from RZ_Company_Salary_0000 a, RZ_Company_Stock_0000 b, RZ_Company_Size_0000 r, RZ_Company_Genre_0000 g, RZ_Area c, RZ_HangYe d
     where a.股票代码=b.股票代码 and b.地域全称=c.地域全称 and g.行业名称=d.行业名称 and b.股票代码=r.股票代码 and b.股票代码=g.股票代码;
 
-UPDATE RZ_Company SET 板块 = "主板"   WHERE (股票代码 LIKE '600%') OR (股票代码 LIKE '000%');
+UPDATE RZ_Company SET 板块 = "主板"   WHERE (股票代码 LIKE '60%') OR (股票代码 LIKE '000%') OR (股票代码 LIKE '001%');
 UPDATE RZ_Company SET 板块 = "中小板" WHERE (股票代码 LIKE '002%');
 UPDATE RZ_Company SET 板块 = "创业板" WHERE (股票代码 LIKE '300%');
 

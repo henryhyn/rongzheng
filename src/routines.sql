@@ -112,7 +112,7 @@ ALTER TABLE RZ_Company_All ADD INDEX (`股票代码`);
 
 DROP TABLE IF EXISTS `RZ_Database_2012`;
 CREATE TABLE RZ_Database_2012
-SELECT 股票代码,高管姓名,职位内容,年薪,年薪 AS 持股数量 FROM RZ_Salary_1
+SELECT 股票代码,高管姓名,职位内容,年薪,0 AS 持股数量 FROM RZ_Salary_1
 ORDER BY 股票代码,职位内容,年薪 DESC;
 ALTER TABLE RZ_Database_2012 ADD INDEX (`股票代码`,`高管姓名`);
 UPDATE RZ_Database_2012 a, RZ_Stock_1 b SET a.持股数量=b.持股数量 WHERE a.股票代码=b.股票代码 AND a.高管姓名=b.高管姓名;

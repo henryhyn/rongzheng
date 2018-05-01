@@ -370,11 +370,12 @@ End Sub
 ## 导出数据
 
 select a.*, 职位内容, 高管姓名, ROUND(年薪), ROUND(持股数量)
-into outfile '/tmp/DataBase2014.csv'
+into outfile '/tmp/DataBase2016.csv'
 FIELDS TERMINATED BY ',' ENCLOSED BY '"'
 LINES TERMINATED BY '\r\n'
 from RZ_Company_All a, RZ_Database_2012 b
-where a.股票代码=b.股票代码;
+where a.股票代码=b.股票代码 and a.股票代码<='10000.SZ'
+order by a.股票代码, b.职位内容, b.年薪 DESC;
 
 ## 排序
 
@@ -622,5 +623,5 @@ Sub Color()
 End Sub
 
 
-
+=IF(AND(AZ4=BD4,AZ4<>""),TRUE,FALSE)
 =IF(AND(AW2317=BA2317,AW2317<>""),TRUE,FALSE)

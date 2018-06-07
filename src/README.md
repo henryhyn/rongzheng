@@ -24,3 +24,9 @@ last.year=2014
 
 chap13.Rnw
 sql = "select '2015' as 年度,
+
+董秘兼财务总监 样本数
+
+SELECT count(DISTINCT 股票代码) FROM (
+    select 股票代码 from RZ_Salary_All a group by a.股票代码,高管姓名 having sum(职位秩序)=24
+) a;

@@ -2,8 +2,6 @@
 ./clean
 #rm -fr figure cache
 cat chap01.Rnw \
-    chap02.Rnw \
-    chap04.Rnw \
     chap08.Rnw \
     chap13.Rnw \
   > chap99.Rnw

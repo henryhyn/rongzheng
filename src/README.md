@@ -1,4 +1,13 @@
-荣正项目操作指南
+## 先决条件
+
+-   R
+    -   前往官方网站: <https://cran.r-project.org/bin/macosx>, 下载最新版 pkg, 并按提示完成安装.
+    -   在终端输入 R, 进入 R 交互式环境, 并安装如下依赖包 `install.packages(c("knitr", "RMySQL", "xtable", "plyr", "RSQLite", "sqldf"))`
+-   Python3
+    -   安装依赖包 `pip3 install numpy pandas pymysql`
+    -   配置 MySQL 的 `sql_mode`, 取消 `ONLY_FULL_GROUP_BY`, 编辑 `my.cnf`, 然后重启
+
+## 荣正项目操作指南
 
 -   提取如下数据
      1  总表1-基本信息-持股.xlsx
@@ -12,6 +21,10 @@
 -   确认职位划分
 -   如果编辑过文件, 就需要执行 delete 语句, delete from RZ_Company_Genre_0000 limit 2;
 -   执行职位导入到结束
+
+从 Excel 导入数据, 不走 xlsx2csv, 采用 import_xlsx.py, 尝试, 尚未完成
+
+前两章统计结果用 `python3 report.py`, 输出结果在 `/tmp` 下, 不用 word 形式了
 
 
 ln -s htex.plain htex

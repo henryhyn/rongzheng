@@ -17,6 +17,9 @@ def split(read, write):
     fread  = open(read,'r')
     for line in fread:
         lst = line.strip('\n').split('|')
+        if len(lst) < 4:
+            print "Bad line: %s" % line
+            continue
         i_split = lst[3].replace('兼',',').replace('及',',').replace('/',',').replace('、',',').replace('﹑',',').replace(';',',').replace('，',',').replace('\\',',')
         for i in i_split.split(','):
             lst[3] = i

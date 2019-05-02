@@ -28,7 +28,7 @@
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_MergeData`(IN `year` integer)
+CREATE PROCEDURE `sp_MergeData`(IN `year` integer)
 BEGIN
 
 DELETE FROM RZ_Company WHERE 年份=year;
@@ -77,7 +77,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_SplitData`(IN `year` integer)
+CREATE PROCEDURE `sp_SplitData`(IN `year` integer)
 BEGIN
 
 

@@ -23,10 +23,10 @@ def write_data(title, sql):
     data.to_excel(writer, sheet_name=title)
 
 
-this_year = 2017
-num_company = 3467
+this_year = 2018
+num_company = 3566
 # 计算高管薪酬占比平均值的样本数, 可以根据结果求和反推
-num_rate = 3433
+num_rate = 3536
 sql = 'select 职位内容,职位秩序 from RZ_Job where 职位秩序<=32'
 iterator = export_data(sql)
 sql = 'select 行业名称,行业编码 from RZ_HangYe'

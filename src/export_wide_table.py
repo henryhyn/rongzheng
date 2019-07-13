@@ -20,9 +20,8 @@ if __name__ == '__main__':
     res = res.drop(['年份'], axis=1)
 
     # 董事长
-    ceo = export_job(db, '董事长', 0)
-    ceo['兼总经理'] = np.array([False] * len(ceo))
-    res = pd.merge(res, ceo, on='股票代码', how='outer')
+    res = pd.merge(res, export_job(db, '董事长', 0), on='股票代码', how='outer')
+    res['兼总经理'] = np.array([False] * len(res))
 
     # 其他职位
     res = pd.merge(res, export_job(db, '总经理', 0), on='股票代码', how='outer')

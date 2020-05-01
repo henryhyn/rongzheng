@@ -33,7 +33,7 @@ BEGIN
 
 DELETE FROM RZ_Company WHERE 年份=year;
 INSERT INTO RZ_Company
-select a.股票代码,a.股票简称,d.行业名称,d.行业编码,a.企业属性,c.地域,"暂不考虑" as 板块,
+select a.股票代码,a.股票简称,g.行业名称,g.行业代码,a.企业属性,c.地域,"暂不考虑" as 板块,
     10000*a.高管薪酬总和,  1*a.高管人数,  1*a.领薪高管人数,  10000*a.高管人均薪酬,
     10000*a.独董薪酬总和,  1*a.独董人数,  1*a.领薪独董人数,  10000*a.独董人均薪酬,
     10000*a.员工薪酬总和,  1*a.员工人数,  10000*a.员工人均薪酬,
@@ -44,22 +44,27 @@ select a.股票代码,a.股票简称,d.行业名称,d.行业编码,a.企业属�
     10000*a.净利润,  10000*a.利润总额,  10000*a.息税前利润,  10000*a.支付各项税费,  10000*a.固定资产折旧,  10000*a.固定资产累计折旧,  10000*a.应付职工薪酬,
     (1*r.每股收益) as 每股收益,(1*r.净资产收益率) as 净资产收益率,(1*r.加权净资产收益率) as 加权净资产收益率,
     (100*高管薪酬总和/员工薪酬总和) as 高管薪酬占比,year
-    from RZ_Company_Salary_0000 a, RZ_Company_Stock_0000 b, RZ_Company_Size_0000 r, RZ_Company_Genre_0000 g, RZ_Area c, RZ_HangYe d
-    where a.股票代码=b.股票代码 and b.地域全称=c.地域全称 and g.行业名称=d.行业名称 and b.股票代码=r.股票代码 and b.股票代码=g.股票代码;
+    from RZ_Company_Salary_0000 a, RZ_Company_Stock_0000 b, RZ_Company_Size_0000 r, RZ_Company_Genre_0000 g, RZ_Area c
+    where a.股票代码=b.股票代码 and a.股票代码=r.股票代码 and a.股票代码=g.股票代码 and b.地域全称=c.地域全称;
 
 UPDATE RZ_Company SET 板块 = "主板"   WHERE (股票代码 LIKE '60%') OR (股票代码 LIKE '000%') OR (股票代码 LIKE '001%');
-UPDATE RZ_Company SET 板块 = "中小板" WHERE (股票代码 LIKE '002%');
+UPDATE RZ_Company SET 板块 = "中小板" WHERE (股票代码 LIKE '002%') OR (股票代码 LIKE '003%');
 UPDATE RZ_Company SET 板块 = "创业板" WHERE (股票代码 LIKE '300%');
+UPDATE RZ_Company SET 板块 = "科创板" WHERE (股票代码 LIKE '688%');
 
 DELETE FROM RZ_Salary WHERE 年份=year;
 INSERT INTO RZ_Salary
-select 股票代码,高管姓名,a.职位,职位秩序,职位内容,(10000*年薪) AS 年薪,兼职,year
-    from RZ_Salary_0000 a, RZ_Job_All b where a.职位=b.职位 group by 股票代码,高管姓名,职位秩序;
+select a.股票代码,a.高管姓名,b.职位,b.职位秩序,职位内容,年薪,兼职,year from (
+    select 股票代码,高管姓名,职位秩序,max(id) as id
+    from RZ_Salary_0000 x, RZ_Job_All y where x.职位=y.职位 group by 股票代码,高管姓名,职位秩序
+) s, RZ_Salary_0000 a, RZ_Job_All b where s.id=a.id and a.职位=b.职位;
 
 DELETE FROM RZ_Stock WHERE 年份=year;
 INSERT INTO RZ_Stock
-select 股票代码,高管姓名,a.职位,职位秩序,职位内容,(10000*持股数量) AS 持股数量,(10000*持股市值) AS 持股市值,(1*持股比例) AS 持股比例,year
-    from RZ_Stock_0000 a, RZ_Job_All b where a.职位=b.职位 group by 股票代码,高管姓名,职位秩序;
+select a.股票代码,a.高管姓名,b.职位,b.职位秩序,职位内容,持股数量,持股市值,(1*持股比例) AS 持股比例,year from (
+    select 股票代码,高管姓名,职位秩序,max(id) as id
+    from RZ_Stock_0000 x, RZ_Job_All y where x.职位=y.职位 group by 股票代码,高管姓名,职位秩序
+) s, RZ_Stock_0000 a, RZ_Job_All b where s.id=a.id and a.职位=b.职位;
 
 END ;;
 DELIMITER ;
@@ -114,7 +119,7 @@ DROP TABLE IF EXISTS `RZ_Database_2012`;
 CREATE TABLE RZ_Database_2012
 SELECT 股票代码,高管姓名,职位内容,年薪,0 AS 持股数量 FROM RZ_Salary_1
 ORDER BY 股票代码,职位内容,年薪 DESC;
-ALTER TABLE RZ_Database_2012 ADD INDEX (`股票代码`,`高管姓名`);
+ALTER TABLE RZ_Database_2012 MODIFY `持股数量` double, ADD INDEX (`股票代码`,`高管姓名`);
 UPDATE RZ_Database_2012 a, RZ_Stock_1 b SET a.持股数量=b.持股数量 WHERE a.股票代码=b.股票代码 AND a.高管姓名=b.高管姓名;
 
 delete a from RZ_Salary_1 a left join RZ_Company_All b on a.股票代码=b.股票代码 where a.股票代码 is not null and b.股票代码 is null;

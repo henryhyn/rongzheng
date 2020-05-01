@@ -170,7 +170,7 @@ DROP TABLE IF EXISTS `RZ_Salary_9`;
 create table RZ_Salary_9
 select 股票代码,股票简称,地域,行业编码,年薪,职位,a.高管姓名,合计年薪 from RZ_Salary_8 a,
     (select 高管姓名,sum(年薪) as 合计年薪 from RZ_Salary_8 group by 高管姓名 order by 合计年薪 desc limit 30) b
-    where a.高管姓名=b.高管姓名 order by 合计年薪 desc;
+    where a.高管姓名=b.高管姓名 order by 合计年薪 desc, 年薪 desc, 股票代码;
 
 
 

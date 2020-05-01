@@ -70,9 +70,13 @@ cd $dir_data
 cd -
 
 #### data analysis ####
+# python3 import_xlsx.py $year
+# mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e 'source export_joball.sql'
+# mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e 'source routines.sql'
 # mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e "call sp_MergeData($year)"
 # mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e "call sp_SplitData($year)"
 # mysql -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng -e 'source sp_main.sql'
+python3 report.py
 
 #### generate report ####
 cd $dir_rnw
@@ -83,11 +87,7 @@ cd -
 
 
 #### backup data ####
-# mysqldump -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 -tdR rongzheng > routines.sql
-# mysqldump -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng RZ_HangYe RZ_Area RZ_Job > data.sql
-# mysqldump -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 -d rongzheng RZ_Company RZ_Salary RZ_Stock RZ_Job_All > proc_rongzheng.sql
-# mysqldump -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng RZ_Company RZ_Salary RZ_Stock RZ_Job_All > data_$year.sql
-# mysqldump -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 -d rongzheng RZ_Company_Salary_0000 RZ_Company_Stock_0000 RZ_Company_Size_0000 RZ_Company_Genre_0000 RZ_Salary_0000 RZ_Stock_0000 > rongzheng.sql
+# mysqldump -uroot -pmysql -h127.0.0.1 --default-character-set=utf8 rongzheng RZ_Company RZ_Salary RZ_Stock RZ_HangYe RZ_Area RZ_Job RZ_Job_All > rongzheng.$year.sql
 
 
 

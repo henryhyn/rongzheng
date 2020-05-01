@@ -8,14 +8,12 @@ library('plyr')
 library('RSQLite')
 library('sqldf')
 options(sqldf.driver="SQLite")
-num.company=3566
-num.rate=3536
-this.year=2018
-last.year=2017
+num.company=3758
+num.rate=3605
+this.year=2019
+last.year=2018
 sql = "select 职位内容,职位秩序 from RZ_Job where 职位秩序<=32"
 iterator = fetch(dbSendQuery(connect,sql))
-sql = "select 行业名称,行业编码 from RZ_HangYe"
-hangye = fetch(dbSendQuery(connect,sql))
 @
 
 \title{中国企业家价值报告}

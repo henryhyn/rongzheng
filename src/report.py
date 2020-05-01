@@ -1,6 +1,5 @@
 # encoding=utf-8
 import pymysql
-import numpy as np
 import pandas as pd
 
 
@@ -23,14 +22,12 @@ def write_data(title, sql):
     data.to_excel(writer, sheet_name=title)
 
 
-this_year = 2018
-num_company = 3566
+this_year = 2019
+num_company = 3758
 # 计算高管薪酬占比平均值的样本数, 可以根据结果求和反推
-num_rate = 3536
+num_rate = 3605
 sql = 'select 职位内容,职位秩序 from RZ_Job where 职位秩序<=32'
 iterator = export_data(sql)
-sql = 'select 行业名称,行业编码 from RZ_HangYe'
-hangye = export_data(sql)
 
 writer = pd.ExcelWriter(r'/tmp/a.xlsx')
 
@@ -144,37 +141,25 @@ data_avg.to_excel(writer, sheet_name=title)
 
 ## 分行业名称高管年薪平均值及排序
 title = '分行业名称最高年薪平均值及排序(有效样本{}家)'.format(data_salary['最高年薪']['有效样本'])
-sql = 'select 行业名称, count(1) AS `样本数(家)`, round(avg(年薪)) AS `均值(元)` from RZ_Salary_Top group by 行业名称 order by `均值(元)` desc'
-print_info(title, sql)
-data = export_data(sql)
-data_avg = pd.merge(data, hangye, on='行业名称')
-data_avg.index = pd.Series(data=range(1, len(data_avg) + 1), name='排名')
-data_avg[['行业名称', '行业编码', '样本数(家)', '均值(元)']].to_excel(writer, sheet_name=title)
+sql = 'select 行业名称, 行业编码, count(1) AS `样本数(家)`, round(avg(年薪)) AS `均值(元)` from RZ_Salary_Top group by 行业名称, 行业编码 order by `均值(元)` desc'
+write_data(title, sql)
 
 for i in range(1, 7):
     职位内容 = iterator['职位内容'][i]
     职位秩序 = iterator['职位秩序'][i]
     title = '分行业名称{}年薪平均值及排序(有效样本{}家)'.format(职位内容, data_salary[职位内容]['有效样本'])
-    template = 'select 行业名称, count(1) AS `样本数(家)`, round(avg(年薪)) AS `均值(元)` from RZ_Salary_One where 职位秩序={} group by 行业名称 order by `均值(元)` desc'
+    template = 'select 行业名称, 行业编码, count(1) AS `样本数(家)`, round(avg(年薪)) AS `均值(元)` from RZ_Salary_One where 职位秩序={} group by 行业名称, 行业编码 order by `均值(元)` desc'
     sql = template.format(职位秩序)
-    print_info(title, sql)
-    data = export_data(sql)
-    data_avg = pd.merge(data, hangye, on='行业名称')
-    data_avg.index = pd.Series(data=range(1, len(data_avg) + 1), name='排名')
-    data_avg[['行业名称', '行业编码', '样本数(家)', '均值(元)']].to_excel(writer, sheet_name=title)
+    write_data(title, sql)
 
 ## 分行业名称高管持股市值平均值及排序
 for i in range(1, 6):
     职位内容 = iterator['职位内容'][i]
     职位秩序 = iterator['职位秩序'][i]
     title = '分行业名称{}持股市值平均值及排序(有效样本{}家)'.format(职位内容, data_stock[职位内容]['有效样本'])
-    template = 'select 行业名称, count(1) AS `样本数(家)`, round(avg(持股市值)) AS `均值(元)` from RZ_Stock_One where 职位秩序={} group by 行业名称 order by `均值(元)` desc'
+    template = 'select 行业名称, 行业编码, count(1) AS `样本数(家)`, round(avg(持股市值)) AS `均值(元)` from RZ_Stock_One where 职位秩序={} group by 行业名称, 行业编码 order by `均值(元)` desc'
     sql = template.format(职位秩序)
-    print_info(title, sql)
-    data = export_data(sql)
-    data_avg = pd.merge(data, hangye, on='行业名称')
-    data_avg.index = pd.Series(data=range(1, len(data_avg) + 1), name='排名')
-    data_avg[['行业名称', '行业编码', '样本数(家)', '均值(元)']].to_excel(writer, sheet_name=title)
+    write_data(title, sql)
 
 ## 分地域高管年薪平均值及排序
 title = '分地域最高年薪平均值及排序(有效样本{}家)'.format(data_salary['最高年薪']['有效样本'])

@@ -4,7 +4,7 @@
     -   前往官方网站: <https://cran.r-project.org/bin/macosx>, 下载最新版 pkg, 并按提示完成安装.
     -   在终端输入 R, 进入 R 交互式环境, 并安装如下依赖包 `install.packages(c("knitr", "RMySQL", "xtable", "plyr", "RSQLite", "sqldf"))`
 -   Python3
-    -   安装依赖包 `pip3 install numpy pandas pymysql`
+    -   安装依赖包 `pip3 install numpy pandas pymysql openpyxl`
     -   配置 MySQL 的 `sql_mode`, 取消 `ONLY_FULL_GROUP_BY`, 编辑 `my.cnf`, 然后重启
 
 ## 荣正项目操作指南
@@ -43,3 +43,15 @@ sql = "select '2015' as 年度,
 SELECT count(DISTINCT 股票代码) FROM (
     select 股票代码 from RZ_Salary_All a group by a.股票代码,高管姓名 having sum(职位秩序)=24
 ) a;
+
+## 操作步骤 2020
+
+1. 导入上一年的数据
+1. 执行 `python3 import_xlsx.py`
+5. 执行 `./main.sh 1`
+    2. 执行 `source export_joball.sql`
+    2. 执行 `source routines.sql`
+    3. 执行 `call sp_MergeData(2019);`
+    3. 执行 `call sp_SplitData(2019);`
+    4. 执行 `source sp_main.sql`
+5. 执行 `python3 report.py`

@@ -1,7 +1,7 @@
 \newpage
 \subsection{高管薪酬与企业绩效关系的时间序列分析}
 <<results='asis'>>=
-sql = "select '2017' as 年度,
+sql = "select '2019' as 年度,
     avg(加权净资产收益率) as 加权净资产收益率均值,
     avg(总资产) as 总资产均值,
     avg(年薪) as 最高年薪均值
